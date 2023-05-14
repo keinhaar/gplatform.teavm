@@ -1,4 +1,4 @@
-package de.exware.gplatform.gwt.timer;
+package de.exware.gplatform.teavm.timer;
 
 import de.exware.gplatform.timer.GPTimer;
 import de.exware.gplatform.timer.GPTimerTask;

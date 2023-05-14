@@ -1,8 +1,8 @@
-package de.exware.gplatform.gwt.element;
+package de.exware.gplatform.teavm.element;
 
 import de.exware.gplatform.element.GPCanvasElement;
 import de.exware.gplatform.element.GPContext2d;
-import de.exware.gplatform.gwt.TeavmGPElement;
+import de.exware.gplatform.teavm.TeavmGPElement;
 
 public class TeavmGPCanvasElement extends TeavmGPElement 
     implements GPCanvasElement

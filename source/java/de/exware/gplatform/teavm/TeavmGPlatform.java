@@ -1,11 +1,11 @@
-package de.exware.gplatform.gwt;
+package de.exware.gplatform.teavm;
 
 import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
-import de.exware.gplatform.gwt.style.TeavmGPStyleSheet;
-import de.exware.gplatform.gwt.timer.TeavmGPTimer;
 import de.exware.gplatform.style.GPStyleSheet;
+import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
+import de.exware.gplatform.teavm.timer.TeavmGPTimer;
 import de.exware.gplatform.timer.GPTimer;
 
 public class TeavmGPlatform extends de.exware.gplatform.GPlatform

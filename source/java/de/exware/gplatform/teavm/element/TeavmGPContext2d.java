@@ -1,4 +1,4 @@
-package de.exware.gplatform.gwt.element;
+package de.exware.gplatform.teavm.element;
 
 import de.exware.gplatform.element.GPContext2d;
 import de.exware.gplatform.element.GPImageElement;

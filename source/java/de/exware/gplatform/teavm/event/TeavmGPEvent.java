@@ -1,4 +1,4 @@
-package de.exware.gplatform.gwt.event;
+package de.exware.gplatform.teavm.event;
 
 import java.util.List;
 

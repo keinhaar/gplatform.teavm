@@ -1,4 +1,4 @@
-package de.exware.gplatform.gwt.style;
+package de.exware.gplatform.teavm.style;
 
 import de.exware.gplatform.style.CSSRule;
 import de.exware.gplatform.style.GPStyleSheet;

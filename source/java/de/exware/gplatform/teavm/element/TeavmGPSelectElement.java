@@ -1,8 +1,8 @@
-package de.exware.gplatform.gwt.element;
+package de.exware.gplatform.teavm.element;
 
 import de.exware.gplatform.element.GPOptionElement;
 import de.exware.gplatform.element.GPSelectElement;
-import de.exware.gplatform.gwt.TeavmGPElement;
+import de.exware.gplatform.teavm.TeavmGPElement;
 
 public class TeavmGPSelectElement extends TeavmGPElement implements GPSelectElement
 {

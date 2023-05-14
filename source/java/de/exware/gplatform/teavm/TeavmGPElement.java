@@ -1,4 +1,4 @@
-package de.exware.gplatform.gwt;
+package de.exware.gplatform.teavm;
 
 import java.util.List;
 
