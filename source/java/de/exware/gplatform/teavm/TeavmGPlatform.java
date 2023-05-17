@@ -91,5 +91,10 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 	{
 		return new TeavmGPStorage();
 	}
+
+    @Override
+    public void clearSelection()
+    {
+    }
 }
 
