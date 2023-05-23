@@ -1,8 +1,17 @@
 package de.exware.gplatform.teavm;
 
+import org.teavm.interop.AsyncCallback;
+import org.teavm.jso.JSBody;
+import org.teavm.jso.browser.Window;
+import org.teavm.jso.canvas.CanvasRenderingContext2D;
+import org.teavm.jso.canvas.TextMetrics;
+import org.teavm.jso.dom.html.HTMLCanvasElement;
+import org.teavm.jso.dom.html.HTMLDocument;
+
 import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
+import de.exware.gplatform.internal.Ajax;
 import de.exware.gplatform.style.GPStyleSheet;
 import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
@@ -11,7 +20,9 @@ import de.exware.gplatform.timer.GPTimer;
 public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 {
     private static GPWindow window = new TeavmGPWindow();
-    private static GPDocument document;
+    private static GPDocument document = new TeavmGPDocument();
+    private static HTMLCanvasElement measureCanvas = (HTMLCanvasElement) HTMLDocument.current().createElement("canvas");
+    private static final String SERVER_ROOT = "../../"; 
     
     private TeavmGPlatform()
     {}
@@ -28,7 +39,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
         return window;
     }
 
-    protected static void init()
+    public static void init()
     {
         new TeavmGPlatform();
     }
@@ -36,31 +47,44 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @Override
     public double stringWidth(String font, String text)
     {
-        return 10; //dummy;
+    	double width = 0;
+        CanvasRenderingContext2D g2d = (CanvasRenderingContext2D) measureCanvas.getContext("2d");
+        g2d.setFont(font);
+        TextMetrics tm = g2d.measureText(text);
+        width = tm.getWidth();
+        return width;
     }
-
+    
+    @JSBody(params = {}, script = "return window.devicePixelRatio;")
+    private static native double native_getDevicePixelRatio();
+    
     @Override
     public double getDevicePixelRatio()
     {
-        return 0;
+        return native_getDevicePixelRatio();
     }
-
+    /**
+     * @return returns SERVER_ROOT
+     */
     @Override
     public String getModuleBaseForStaticFiles()
     {
-        return null;
+    	return SERVER_ROOT;
     }
-
+    
+    /**
+     * @return returns SERVER_ROOT
+     */
     @Override
     public String getModuleBaseURL()
     {
-        return null;
+    	return SERVER_ROOT;
     }
 
     @Override
     public GPStyleSheet getStyleSheet(int index)
-    {
-        return TeavmGPStyleSheet.get(index);
+    {	
+        return (TeavmGPStyleSheet) TeavmGPStyleSheet.get(index);
     }
 
     @Override
@@ -78,12 +102,24 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 	@Override
 	public void alert(String text) 
 	{
-//		Window.alert(text);
+		Window.alert(text);
 	}
 
 	@Override
 	public void loadData(String url, Callback callback) 
 	{
+		Ajax.get(url, new AsyncCallback<String>() {
+			
+			@Override
+			public void error(Throwable e) {
+				callback.onError(e);
+			}
+			
+			@Override
+			public void complete(String result) {
+				callback.onSuccess(200, result);
+			}
+		});
 	}
 	
 	@Override
@@ -91,10 +127,12 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 	{
 		return new TeavmGPStorage();
 	}
-
-    @Override
-    public void clearSelection()
-    {
-    }
+	
+	public void clearSelection() {
+		native_clearSelection();
+	}
+	
+	@JSBody(params = {}, script = "(window.getSelection ? window.getSelection() : document.selection).empty();")
+	private static native void native_clearSelection();
 }
 
