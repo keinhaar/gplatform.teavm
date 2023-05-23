@@ -1,5 +1,7 @@
 package de.exware.gplatform.teavm;
 
+import org.teavm.jso.JSBody;
+
 import de.exware.gplatform.GPWindow;
 
 public class TeavmGPWindow implements GPWindow
@@ -11,12 +13,18 @@ public class TeavmGPWindow implements GPWindow
     @Override
     public int getClientWidth()
     {
-        return 0;
+        return native_getClientWidth();
     }
 
     @Override
     public int getClientHeight()
     {
-        return 0;
+        return native_getClientHeight();
     }
+    
+    @JSBody(params = {}, script = "return window.clientWidth")
+    private static native int native_getClientWidth();
+    
+    @JSBody(params = {}, script = "return window.clientHeight")
+    private static native int native_getClientHeight();
 }
