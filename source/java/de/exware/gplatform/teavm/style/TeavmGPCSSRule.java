@@ -6,9 +6,12 @@ import org.teavm.jso.JSProperty;
 
 import de.exware.gplatform.style.CSSRule;
 
-public abstract class TeavmGPCSSRule implements CSSRule, JSObject {
+public class TeavmGPCSSRule implements CSSRule, JSObject {
 	
-	protected TeavmGPCSSRule() {
+	private JSObject nativeJSObject;
+	
+	public TeavmGPCSSRule(JSObject nativeJSObject) {
+		this.nativeJSObject = nativeJSObject;
 	}
 
 	public final int getInt(String name) {
@@ -53,28 +56,28 @@ public abstract class TeavmGPCSSRule implements CSSRule, JSObject {
 	private static native String getPropertyName(JSObject jsObject, int i);
 	
 	protected String getPropertyName(int i) {
-		return getPropertyName(this, i);
+		return getPropertyName(nativeJSObject, i);
 	}
 	
 	@JSBody(params = {"jsObject", "name"}, script = "return jsObject.style.getPropertyValue(name);")
-	private static native String getPropertyValue(JSObject jsObject, String name);
+	private static native String native_getPropertyValue(JSObject jsObject, String name);
 
 	protected String getPropertyValue(String name) {
-		return getPropertyValue(this, name);
+		return native_getPropertyValue(nativeJSObject, name);
 	}
 	
-	@JSBody(params = {"jsObject", "name", "value"}, script = "return jsObject.style.setProperty(name, value);")
-	private native void setPropertyValue(JSObject jsObject, String name, String value);
+	@JSBody(params = {"jsObject", "name", "value"}, script = "jsObject.style.setProperty(name, value);")
+	private static native void native_setPropertyValue(JSObject jsObject, String name, String value);
 	
 	protected void setPropertyValue(String name, String value) {
-		setPropertyValue(this, name, value);
+		native_setPropertyValue(nativeJSObject, name, value);
 	}
 	
 	@JSBody(params = {"jsObject"}, script = "return jsObject.style.length;")
-	private native int getPropertyCount(JSObject jsObject);
+	private static native int native_getPropertyCount(JSObject jsObject);
 	
 	protected int getPropertyCount() {
-		return getPropertyCount(this);
+		return native_getPropertyCount(nativeJSObject);
 	}
 
 }

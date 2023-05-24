@@ -12,6 +12,7 @@ import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
 import de.exware.gplatform.internal.Ajax;
+import de.exware.gplatform.style.CSSRule;
 import de.exware.gplatform.style.GPStyleSheet;
 import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
@@ -84,7 +85,14 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @Override
     public GPStyleSheet getStyleSheet(int index)
     {	
-        return (TeavmGPStyleSheet) TeavmGPStyleSheet.get(index);
+    	GPStyleSheet gpStyleSheet = TeavmGPStyleSheet.get(index);
+    	System.out.println("TeavmGPlatform: got TeavmGPStyleSheet");
+		System.out.println("TeavmGPlatform: TeavmGPStyleSheet");
+		CSSRule cssRule = gpStyleSheet.getCSSRule("test");
+		System.out.println("TeavmGPlatform: getCssRule successfully run");
+		cssRule.getProperty("test");
+		System.out.println("TeavmGPlatform: getProperty successfully run");
+        return gpStyleSheet;
     }
 
     @Override
