@@ -11,25 +11,25 @@ public class TeavmGPTextAreaElement extends TeavmGPElement
 {
 
     public TeavmGPTextAreaElement(HTMLElement nativeElement) {
-		super(nativeElement);
-	}
+        super(nativeElement);
+    }
 
-	@Override
+    @Override
     public void setCols(int columns)
     {
-		((HTMLTextAreaElement) getNativeElement()).setCols(columns);
+        ((HTMLTextAreaElement) getNativeElement()).setCols(columns);
     }
 
     @Override
     public void setRows(int rows)
     {
-    	((HTMLTextAreaElement) getNativeElement()).setRows(rows);
+        ((HTMLTextAreaElement) getNativeElement()).setRows(rows);
     }
 
     @Override
     public void setDisabled(boolean b)
     {
-    	((HTMLTextAreaElement) getNativeElement()).setDisabled(b);
+        ((HTMLTextAreaElement) getNativeElement()).setDisabled(b);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TeavmGPTextAreaElement extends TeavmGPElement
     @Override
     public void setValue(String text)
     {
-    	((HTMLTextAreaElement) getNativeElement()).setValue(text);
+        ((HTMLTextAreaElement) getNativeElement()).setValue(text);
     }
 
     @Override

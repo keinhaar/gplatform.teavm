@@ -48,7 +48,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @Override
     public double stringWidth(String font, String text)
     {
-    	double width = 0;
+        double width = 0;
         CanvasRenderingContext2D g2d = (CanvasRenderingContext2D) measureCanvas.getContext("2d");
         g2d.setFont(font);
         TextMetrics tm = g2d.measureText(text);
@@ -70,7 +70,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @Override
     public String getModuleBaseForStaticFiles()
     {
-    	return SERVER_ROOT;
+        return SERVER_ROOT;
     }
     
     /**
@@ -79,19 +79,13 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @Override
     public String getModuleBaseURL()
     {
-    	return SERVER_ROOT;
+        return SERVER_ROOT;
     }
 
     @Override
     public GPStyleSheet getStyleSheet(int index)
-    {	
-    	GPStyleSheet gpStyleSheet = TeavmGPStyleSheet.get(index);
-    	System.out.println("TeavmGPlatform: got TeavmGPStyleSheet");
-		System.out.println("TeavmGPlatform: TeavmGPStyleSheet");
-		CSSRule cssRule = gpStyleSheet.getCSSRule("test");
-		System.out.println("TeavmGPlatform: getCssRule successfully run");
-		cssRule.getProperty("test");
-		System.out.println("TeavmGPlatform: getProperty successfully run");
+    {    
+        GPStyleSheet gpStyleSheet = TeavmGPStyleSheet.get(index);
         return gpStyleSheet;
     }
 
@@ -107,40 +101,40 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
         return new TeavmGPTimer();
     }
 
-	@Override
-	public void alert(String text) 
-	{
-		Window.alert(text);
-	}
+    @Override
+    public void alert(String text) 
+    {
+        Window.alert(text);
+    }
 
-	@Override
-	public void loadData(String url, Callback callback) 
-	{
-		Ajax.get(url, new AsyncCallback<String>() {
-			
-			@Override
-			public void error(Throwable e) {
-				callback.onError(e);
-			}
-			
-			@Override
-			public void complete(String result) {
-				callback.onSuccess(200, result);
-			}
-		});
-	}
-	
-	@Override
-	public GPStorage getLocalStorage() 
-	{
-		return new TeavmGPStorage();
-	}
-	
-	public void clearSelection() {
-		native_clearSelection();
-	}
-	
-	@JSBody(params = {}, script = "(window.getSelection ? window.getSelection() : document.selection).empty();")
-	private static native void native_clearSelection();
+    @Override
+    public void loadData(String url, Callback callback) 
+    {
+        Ajax.get(url, new AsyncCallback<String>() {
+            
+            @Override
+            public void error(Throwable e) {
+                callback.onError(e);
+            }
+            
+            @Override
+            public void complete(String result) {
+                callback.onSuccess(200, result);
+            }
+        });
+    }
+    
+    @Override
+    public GPStorage getLocalStorage() 
+    {
+        return new TeavmGPStorage();
+    }
+    
+    public void clearSelection() {
+        native_clearSelection();
+    }
+    
+    @JSBody(params = {}, script = "(window.getSelection ? window.getSelection() : document.selection).empty();")
+    private static native void native_clearSelection();
 }
 

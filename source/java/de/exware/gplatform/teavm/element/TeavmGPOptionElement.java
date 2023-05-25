@@ -10,12 +10,12 @@ public class TeavmGPOptionElement extends TeavmGPElement implements GPOptionElem
 {
 
     public TeavmGPOptionElement(HTMLElement nativeElement) {
-		super(nativeElement);
-	}
+        super(nativeElement);
+    }
 
-	@Override
+    @Override
     public void setValue(String t)
     {
-		((HTMLOptionElement) getNativeElement()).setValue(t);
+        ((HTMLOptionElement) getNativeElement()).setValue(t);
     }
 }

@@ -93,6 +93,6 @@ class TeavmGPDocument implements de.exware.gplatform.GPDocument
     }
     
     private static HTMLElement createNativeElement(String name) {
-    	return HTMLDocument.current().createElement(name);
+        return HTMLDocument.current().createElement(name);
     }
 }
