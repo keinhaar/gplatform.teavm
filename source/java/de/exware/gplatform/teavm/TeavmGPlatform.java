@@ -12,7 +12,6 @@ import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
 import de.exware.gplatform.internal.Ajax;
-import de.exware.gplatform.style.CSSRule;
 import de.exware.gplatform.style.GPStyleSheet;
 import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
