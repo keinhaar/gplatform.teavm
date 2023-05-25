@@ -48,6 +48,5 @@ public class TeavmGPTimer implements GPTimer
     @Override
     public void cancel()
     {
-        
     }
 }

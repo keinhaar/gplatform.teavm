@@ -10,7 +10,6 @@ import org.teavm.jso.dom.events.MouseEvent;
  *
  */
 public interface MouseWheelEvent extends MouseEvent {
-    
     long MODE_DOM_DELTA_PIXEL = 0x00;
     long MODE_DOM_DELTA_LINE = 0x01;
     long MODE_DOM_DELTA_PAGE = 0x02;
