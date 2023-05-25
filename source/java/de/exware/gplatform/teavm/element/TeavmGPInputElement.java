@@ -10,11 +10,11 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
 {
 
     public TeavmGPInputElement(HTMLElement nativeElement, String type) {
-		super(nativeElement);
-		((HTMLInputElement) getNativeElement()).setType(type);
-	}
+        super(nativeElement);
+        ((HTMLInputElement) getNativeElement()).setType(type);
+    }
 
-	@Override
+    @Override
     public String getValue()
     {
         return ((HTMLInputElement) getNativeElement()).getValue();
@@ -23,7 +23,7 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
     @Override
     public void setValue(String text)
     {
-    	((HTMLInputElement) getNativeElement()).setValue(text);
+        ((HTMLInputElement) getNativeElement()).setValue(text);
     }
 
     @Override
@@ -35,25 +35,25 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
     @Override
     public void setChecked(boolean sel)
     {
-    	((HTMLInputElement) getNativeElement()).setChecked(sel);
+        ((HTMLInputElement) getNativeElement()).setChecked(sel);
     }
 
     @Override
     public void setDisabled(boolean b)
     {
-    	((HTMLInputElement) getNativeElement()).setDisabled(b);
+        ((HTMLInputElement) getNativeElement()).setDisabled(b);
     }
 
     @Override
     public void setDefaultChecked(boolean sel)
     {
-    	((HTMLInputElement) getNativeElement()).setChecked(sel); //TODO: proper fix
+        ((HTMLInputElement) getNativeElement()).setChecked(sel); //TODO: proper fix
     }
 
     @Override
     public void setSize(int length)
     {
-    	((HTMLInputElement) getNativeElement()).setSize(length);
+        ((HTMLInputElement) getNativeElement()).setSize(length);
     }
 
     @Override

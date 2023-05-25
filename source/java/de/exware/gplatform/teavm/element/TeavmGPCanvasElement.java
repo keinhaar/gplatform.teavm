@@ -13,26 +13,26 @@ public class TeavmGPCanvasElement extends TeavmGPElement
 {
 
     public TeavmGPCanvasElement(HTMLElement nativeElement) {
-		super(nativeElement);
-	}
+        super(nativeElement);
+    }
 
-	@Override
+    @Override
     public void setWidth(int width)
     {
-		((HTMLCanvasElement) getNativeElement()).setWidth(width);
+        ((HTMLCanvasElement) getNativeElement()).setWidth(width);
     }
 
     @Override
     public void setHeight(int height)
     {
-    	((HTMLCanvasElement) getNativeElement()).setHeight(height);
+        ((HTMLCanvasElement) getNativeElement()).setHeight(height);
     }
 
     @Override
     public GPContext2d getContext2d()
     {
-    	HTMLCanvasElement canvasElement = (HTMLCanvasElement) getNativeElement();
-    	CanvasRenderingContext2D canvasRenderingContext2D = (CanvasRenderingContext2D) canvasElement.getContext("2d");
+        HTMLCanvasElement canvasElement = (HTMLCanvasElement) getNativeElement();
+        CanvasRenderingContext2D canvasRenderingContext2D = (CanvasRenderingContext2D) canvasElement.getContext("2d");
         return new TeavmGPContext2d(canvasRenderingContext2D);
     }
 }

@@ -10,24 +10,24 @@ public class TeavmGPImageElement extends TeavmGPElement implements GPImageElemen
 {
 
     public TeavmGPImageElement(HTMLElement nativeElement) {
-		super(nativeElement);
-	}
+        super(nativeElement);
+    }
 
-	@Override
+    @Override
     public void setSrc(String url)
     {
-		((HTMLImageElement) getNativeElement()).setSrc(url);
+        ((HTMLImageElement) getNativeElement()).setSrc(url);
     }
 
     @Override
     public void setWidth(int iconWidth)
     {
-    	((HTMLImageElement) getNativeElement()).setWidth(iconWidth);
+        ((HTMLImageElement) getNativeElement()).setWidth(iconWidth);
     }
 
     @Override
     public void setHeight(int iconHeight)
     {
-    	((HTMLImageElement) getNativeElement()).setHeight(iconHeight);
+        ((HTMLImageElement) getNativeElement()).setHeight(iconHeight);
     }
 }

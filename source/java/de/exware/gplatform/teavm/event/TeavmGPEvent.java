@@ -13,15 +13,14 @@ import de.exware.gplatform.internal.MouseWheelEvent;
 public class TeavmGPEvent
     implements GPEvent
 {
-	
-	private Type type;
-	
-	private Event nativeEvent;
-	
-	public TeavmGPEvent(Type type, Event nativeEvent) {
-		this.type = type;
-		this.nativeEvent = nativeEvent;
-	}
+    private Type type;
+    
+    private Event nativeEvent;
+    
+    public TeavmGPEvent(Type type, Event nativeEvent) {
+        this.type = type;
+        this.nativeEvent = nativeEvent;
+    }
 
     @Override
     public Type getType()
@@ -32,13 +31,13 @@ public class TeavmGPEvent
     @Override
     public void preventDefault()
     {
-    	nativeEvent.preventDefault();
+        nativeEvent.preventDefault();
     }
 
     @Override
     public void stopPropagation()
     {
-    	nativeEvent.stopPropagation();
+        nativeEvent.stopPropagation();
     }
 
     @Override
@@ -74,14 +73,14 @@ public class TeavmGPEvent
     @Override
     public Button getButton()
     {
-    	short button = ((MouseEvent) nativeEvent).getButton();
-    	if(button == MouseEvent.LEFT_BUTTON)
-        	return Button.BUTTON_LEFT;
-    	if(button == MouseEvent.RIGHT_BUTTON)
-        	return Button.BUTTON_RIGHT;
-    	if(button == MouseEvent.MIDDLE_BUTTON)
-        	return Button.BUTTON_MIDDLE;
-		return null; 
+        short button = ((MouseEvent) nativeEvent).getButton();
+        if(button == MouseEvent.LEFT_BUTTON)
+            return Button.BUTTON_LEFT;
+        if(button == MouseEvent.RIGHT_BUTTON)
+            return Button.BUTTON_RIGHT;
+        if(button == MouseEvent.MIDDLE_BUTTON)
+            return Button.BUTTON_MIDDLE;
+        return null; 
     }
 
     @Override
@@ -105,12 +104,12 @@ public class TeavmGPEvent
     @Override
     public List<GPTouch> getTouches()
     {
-    	throw new RuntimeException("TeavmGPEvent.getTouches() is unsupported."); //TODO: proper implementation
+        throw new RuntimeException("TeavmGPEvent.getTouches() is unsupported."); //TODO: proper implementation
     }
 
     @Override
     public List<GPTouch> getChangedTouches()
     {
-    	throw new RuntimeException("TeavmGPEvent.getChangedTouches() is unsupported."); //TODO: proper implementation
+        throw new RuntimeException("TeavmGPEvent.getChangedTouches() is unsupported."); //TODO: proper implementation
     }
 }

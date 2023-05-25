@@ -11,10 +11,10 @@ public class TeavmGPSelectElement extends TeavmGPElement implements GPSelectElem
 {
 
     public TeavmGPSelectElement(HTMLElement nativeElement) {
-		super(nativeElement);
-	}
+        super(nativeElement);
+    }
 
-	@Override
+    @Override
     public int getSelectedIndex()
     {
         return ((HTMLSelectElement) getNativeElement()).getSelectedIndex();
@@ -23,24 +23,24 @@ public class TeavmGPSelectElement extends TeavmGPElement implements GPSelectElem
     @Override
     public void setSelectedIndex(int i)
     {
-    	((HTMLSelectElement) getNativeElement()).setSelectedIndex(i);
+        ((HTMLSelectElement) getNativeElement()).setSelectedIndex(i);
     }
 
     @Override
     public void clear()
     {
-    	((HTMLSelectElement) getNativeElement()).clear();
+        ((HTMLSelectElement) getNativeElement()).clear();
     }
 
     @Override
     public void add(GPOptionElement opt)
     {
-    	((HTMLSelectElement) getNativeElement()).appendChild(((TeavmGPOptionElement) opt).getNativeElement());
+        ((HTMLSelectElement) getNativeElement()).appendChild(((TeavmGPOptionElement) opt).getNativeElement());
     }
 
     @Override
     public void setDisabled(boolean b)
     {
-    	((HTMLSelectElement) getNativeElement()).setDisabled(b);
+        ((HTMLSelectElement) getNativeElement()).setDisabled(b);
     }
 }
