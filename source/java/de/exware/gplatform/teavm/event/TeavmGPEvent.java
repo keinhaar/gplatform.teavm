@@ -13,7 +13,6 @@ import de.exware.gplatform.internal.MouseWheelEvent;
 public class TeavmGPEvent
     implements GPEvent
 {
-    
     private Type type;
     
     private Event nativeEvent;

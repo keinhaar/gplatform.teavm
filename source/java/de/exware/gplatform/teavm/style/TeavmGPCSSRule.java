@@ -2,7 +2,6 @@ package de.exware.gplatform.teavm.style;
 
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
-
 import de.exware.gplatform.internal.Logger;
 import de.exware.gplatform.style.CSSRule;
 

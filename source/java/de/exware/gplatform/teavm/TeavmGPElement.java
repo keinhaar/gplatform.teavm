@@ -23,7 +23,6 @@ import de.exware.gplatform.event.GPEventListener;
 
 public class TeavmGPElement implements GPElement
 {
-    
     private HTMLElement nativeElement;
     
     private GPEventListener gpEventListener;
@@ -46,7 +45,6 @@ public class TeavmGPElement implements GPElement
             TeavmGPElement teavmGPElement = new TeavmGPElement(element);
             gpElements.add(teavmGPElement);
         }
-        
         return gpElements;
     }
     
