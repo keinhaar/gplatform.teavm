@@ -22,9 +22,9 @@ public class TeavmGPWindow implements GPWindow
         return native_getClientHeight();
     }
     
-    @JSBody(params = {}, script = "return window.clientWidth")
+    @JSBody(params = {}, script = "return window.innerWidth;")
     private static native int native_getClientWidth();
     
-    @JSBody(params = {}, script = "return window.clientHeight")
+    @JSBody(params = {}, script = "return window.innerHeight;")
     private static native int native_getClientHeight();
 }
