@@ -1,15 +1,12 @@
 package de.exware.gplatform.teavm;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.events.KeyboardEvent;
 import org.teavm.jso.dom.events.MouseEvent;
-import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.dom.xml.Node;
 import org.teavm.jso.dom.xml.NodeList;
@@ -59,11 +56,15 @@ public class TeavmGPElement implements GPElement
     {
         nativeElement.getClassList().add(className);
     }
-
+    
+    private TeavmGPStyle teavmGPStyleCache = null;
+    
     @Override
     public GPStyle getStyle()
     {
-        return new TeavmGPStyle(nativeElement);
+        if(teavmGPStyleCache == null)
+            teavmGPStyleCache = new TeavmGPStyle(nativeElement);
+        return teavmGPStyleCache;
     }
 
     @Override
@@ -153,13 +154,12 @@ public class TeavmGPElement implements GPElement
             switch(eventType) {
                 case ONCHANGE:
                     enabledEventListeners.add(
-                    new EventListenerContainer("change", new EventListener<Event>() {
-                        public void handleEvent(Event event) {
-                            gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
-                        }
-                    })
-                );
-                    
+                            new EventListenerContainer("change", new EventListener<Event>() {
+                                public void handleEvent(Event event) {
+                                    gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
+                                }
+                            })
+                        );
                     break;
                 case ONCLICK:
                     enabledEventListeners.add(

@@ -12,6 +12,7 @@ import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
 import de.exware.gplatform.internal.Ajax;
+import de.exware.gplatform.internal.Logger;
 import de.exware.gplatform.style.GPStyleSheet;
 import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
@@ -19,6 +20,7 @@ import de.exware.gplatform.timer.GPTimer;
 
 public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 {
+    private static final Logger LOGGER = new Logger(TeavmGPlatform.class);
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
     private static HTMLCanvasElement measureCanvas = (HTMLCanvasElement) HTMLDocument.current().createElement("canvas");
@@ -55,13 +57,12 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
         return width;
     }
     
-    @JSBody(params = {}, script = "return window.devicePixelRatio;")
-    private static native double native_getDevicePixelRatio();
-    
     @Override
     public double getDevicePixelRatio()
     {
-        return native_getDevicePixelRatio();
+        double devicePixelRatio = native_getDevicePixelRatio();
+        LOGGER.log(Logger.LEVEL_NATIVE, "getDevicePixelRatio() -> success");
+        return devicePixelRatio;
     }
     /**
      * @return returns SERVER_ROOT
@@ -131,7 +132,12 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     
     public void clearSelection() {
         native_clearSelection();
+        LOGGER.log(Logger.LEVEL_NATIVE, "clearSelection() -> success");
     }
+    
+    /****************** NATIVE ********************/
+    @JSBody(params = {}, script = "return window.devicePixelRatio;")
+    private static native double native_getDevicePixelRatio();
     
     @JSBody(params = {}, script = "(window.getSelection ? window.getSelection() : document.selection).empty();")
     private static native void native_clearSelection();
