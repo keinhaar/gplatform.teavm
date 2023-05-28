@@ -3,7 +3,9 @@ package de.exware.gplatform.internal;
 import java.time.LocalDateTime;
 
 public class Logger {
+    public static final String LEVEL_NONE = "";
     public static final String LEVEL_NATIVE = "LEVEL_NATIVE";
+    public static final String LEVEL_IMPLEMENTATION = "LEVEL_IMPLEMENTATION";
     public static final String LEVEL_APPLICATION = "LEVEL_APPLICATION";
     
     

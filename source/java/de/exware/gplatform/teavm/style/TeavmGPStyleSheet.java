@@ -1,5 +1,7 @@
 package de.exware.gplatform.teavm.style;
 
+import java.util.HashMap;
+
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 
@@ -9,10 +11,12 @@ import de.exware.gplatform.style.GPStyleSheet;
 
 public class TeavmGPStyleSheet implements GPStyleSheet {
     private static final Logger LOGGER = new Logger(TeavmGPStyleSheet.class);  
+    private static int instanceCounter = 0;
     private final JSObject nativeJsObject;
     
     public TeavmGPStyleSheet(JSObject nativeObject) {
         this.nativeJsObject = nativeObject;
+        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance " + instanceCounter++);
     }
     
     @Override
@@ -33,10 +37,16 @@ public class TeavmGPStyleSheet implements GPStyleSheet {
         return rule;
     }
     
+    private static HashMap<Integer, TeavmGPCSSRule> teavmGPCSSRuleInstanceCache = new HashMap<Integer, TeavmGPCSSRule>();
+    
     protected CSSRule getCSSRule(int i) {
-        TeavmGPCSSRule teavmGPCSSRule = new TeavmGPCSSRule(native_getCSSRule(nativeJsObject, i));
+        TeavmGPCSSRule teavmGPCSSRule = teavmGPCSSRuleInstanceCache.get(i);
+        if(teavmGPCSSRule == null) {
+            teavmGPCSSRule = new TeavmGPCSSRule(native_getCSSRule(nativeJsObject, i));
+            teavmGPCSSRuleInstanceCache.put(i, teavmGPCSSRule);
+        }
         LOGGER.log(Logger.LEVEL_NATIVE, "getCSSRule -> success");
-        return teavmGPCSSRule;
+        return teavmGPCSSRule;  
     }
     
     protected int getRuleCount() {
@@ -45,8 +55,14 @@ public class TeavmGPStyleSheet implements GPStyleSheet {
         return count;
     }
     
+    private static HashMap<Integer, TeavmGPStyleSheet> teavmGPStyleSheetInstanceCache = new HashMap<Integer, TeavmGPStyleSheet>();
+    
     public static GPStyleSheet get(int index) {
-        TeavmGPStyleSheet teavmGPStyleSheet = new TeavmGPStyleSheet(native_get(index));
+        TeavmGPStyleSheet teavmGPStyleSheet = teavmGPStyleSheetInstanceCache.get(index);
+        if(teavmGPStyleSheet == null) {
+            teavmGPStyleSheet = new TeavmGPStyleSheet(native_get(index));
+            teavmGPStyleSheetInstanceCache.put(index, teavmGPStyleSheet);
+        }
         LOGGER.log(Logger.LEVEL_NATIVE, "get -> success");
         return teavmGPStyleSheet;
     }

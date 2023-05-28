@@ -7,10 +7,12 @@ import de.exware.gplatform.style.CSSRule;
 
 public class TeavmGPCSSRule implements CSSRule {
     private static final Logger LOGGER = new Logger(TeavmGPCSSRule.class); 
+    private static int instanceCounter = 0;
     private JSObject nativeJSObject;
     
     public TeavmGPCSSRule(JSObject nativeJSObject) {
         this.nativeJSObject = nativeJSObject;
+        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance " + instanceCounter++);
     }
 
     @Override

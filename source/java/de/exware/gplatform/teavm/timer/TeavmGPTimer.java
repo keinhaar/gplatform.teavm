@@ -5,7 +5,9 @@ import de.exware.gplatform.timer.GPTimerTask;
 
 public class TeavmGPTimer implements GPTimer
 {
-
+    public TeavmGPTimer() {
+    }
+    
     @Override
     public void schedule(GPTimerTask task, int delay)
     {

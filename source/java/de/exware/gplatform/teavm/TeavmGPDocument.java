@@ -17,7 +17,7 @@ import de.exware.gplatform.teavm.element.TeavmGPOptionElement;
 import de.exware.gplatform.teavm.element.TeavmGPSelectElement;
 import de.exware.gplatform.teavm.element.TeavmGPTextAreaElement;
 
-class TeavmGPDocument implements de.exware.gplatform.GPDocument
+public class TeavmGPDocument implements de.exware.gplatform.GPDocument
 {
 
     @Override
@@ -37,7 +37,7 @@ class TeavmGPDocument implements de.exware.gplatform.GPDocument
     {
         return new TeavmGPCanvasElement(createNativeElement("canvas"));
     }
-
+    //TODO: cache it if necessary
     @Override
     public GPElement getBody()
     {
@@ -92,7 +92,11 @@ class TeavmGPDocument implements de.exware.gplatform.GPDocument
         return new TeavmGPInputElement(createNativeElement("input"), "password");
     }
     
+    public static int elementID = 0;
+    
     private static HTMLElement createNativeElement(String name) {
-        return HTMLDocument.current().createElement(name);
+        HTMLElement element = HTMLDocument.current().createElement(name);
+        element.setAttribute("elementID", elementID++ + "");
+        return element;
     }
 }
