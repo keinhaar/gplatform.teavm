@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public class Logger {
     public static final String LEVEL_NATIVE = "LEVEL_NATIVE";
+    public static final String LEVEL_APPLICATION = "LEVEL_APPLICATION";
+    
     
     private Class clazz;
     private String className;
@@ -45,5 +47,9 @@ public class Logger {
         if(logLevel.contains(level)) {
             logLevel = logLevel.replaceAll(level, "");
         }
+    }
+    
+    public static Logger getInstance(Class clazz) {
+        return new Logger(clazz);
     }
 }
