@@ -3,6 +3,8 @@ package de.exware.gplatform.teavm;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.teavm.jso.JSBody;
+import org.teavm.jso.JSObject;
 import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.events.KeyboardEvent;
@@ -104,7 +106,7 @@ public class TeavmGPElement implements GPElement
     @Override
     public int getAbsoluteLeft()
     {
-        int left = nativeElement.getAbsoluteLeft();
+        int left = (int) native_getAbsoluteLeft(nativeElement);
         LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getAbsoluteLeft(): " + left);
         return left;
     }
@@ -112,7 +114,9 @@ public class TeavmGPElement implements GPElement
     @Override
     public int getAbsoluteTop()
     {
-        return nativeElement.getAbsoluteTop();
+        int top = (int) native_getAbsoluteTop(nativeElement);
+        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getAbsoluteTop(): " + top);
+        return top;
     }
 
     @Override
@@ -463,4 +467,34 @@ public class TeavmGPElement implements GPElement
     public HTMLElement getNativeElement() {
         return nativeElement;
     }
+    
+    /******************** NATIVE ****************/
+    @JSBody(params = {"nativeJSObject"}, script = "var left = 0;\r\n"
+            + "    var elem = nativeJSObject;"
+            + "    var curr = nativeJSObject;\r\n"
+            + "    while (curr.offsetParent) {\r\n"
+            + "      left -= curr.scrollLeft;\r\n"
+            + "      curr = curr.parentNode;\r\n"
+            + "    }\r\n"
+            + "    while (elem) {\r\n"
+            + "      left += elem.offsetLeft;\r\n"
+            + "      elem = elem.offsetParent;\r\n"
+            + "    }\r\n"
+            + "    return left; ")
+    private static native double native_getAbsoluteLeft(JSObject nativeJSObject);
+    
+    @JSBody(params = {"nativeJSObject"}, script = "var top = 0;\r\n"
+            + "    var elem = nativeJSObject;"
+            + "    var curr = elem;\r\n"
+            + "    // This intentionally excludes body which has a null offsetParent.\r\n"
+            + "    while (curr.offsetParent) {\r\n"
+            + "      top -= curr.scrollTop;\r\n"
+            + "      curr = curr.parentNode;\r\n"
+            + "    }\r\n"
+            + "    while (elem) {\r\n"
+            + "      top += elem.offsetTop;\r\n"
+            + "      elem = elem.offsetParent;\r\n"
+            + "    }\r\n"
+            + "    return top;")
+    private static native double native_getAbsoluteTop(JSObject nativeJSObject);
 }
