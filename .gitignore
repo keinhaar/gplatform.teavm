@@ -12,7 +12,6 @@ out/
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -27,3 +26,5 @@ replay_pid*
 /target/
 pom.xml
 /build/classes/
+/tmp/
+/dist/

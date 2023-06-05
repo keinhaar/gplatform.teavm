@@ -1,5 +1,8 @@
 package de.exware.gplatform.teavm.timer;
 
+import org.teavm.jso.browser.TimerHandler;
+import org.teavm.jso.browser.Window;
+
 import de.exware.gplatform.timer.GPTimer;
 import de.exware.gplatform.timer.GPTimerTask;
 
@@ -11,23 +14,20 @@ public class TeavmGPTimer implements GPTimer
     @Override
     public void schedule(GPTimerTask task, int delay)
     {
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(delay);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        Window.setTimeout(new TimerHandler() {
+            
+            @Override
+            public void onTimer() {
                 task.execute();
             }
-        });
-        thread.start();
+        }, delay);
     }
 
     @Override
     public void scheduleRepeating(GPTimerTask task, int delay, int interval)
     {
         Thread thread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(delay);

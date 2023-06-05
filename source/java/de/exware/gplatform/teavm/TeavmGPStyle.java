@@ -18,60 +18,36 @@ class TeavmGPStyle implements GPStyle
     @Override
     public void setProperty(String name, String value)
     {
+        name = camelCaseToCSS(name);
         nativeElement.getStyle().setProperty(name, value);
         LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "setProperty -> executed with name: " + name + " value: " + value);
+    }
+
+    private String camelCaseToCSS(String name) 
+    {
+        String css = "";
+        for(int i=0;i<name.length();i++)
+        {
+            char c = name.charAt(i);
+            if(Character.isUpperCase(c))
+            {
+                css += "-" + Character.toLowerCase(c);
+            }
+            else
+            {
+                css += c;
+            }
+        }
+        return css;
     }
 
     @Override
     public String getProperty(String name)
     {
+        name = camelCaseToCSS(name);
         String property = nativeElement.getStyle().getPropertyValue(name);
         LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getProperty -> success for name: " + name + " property: " + property);
         return property;
     }
     
-    public void setBackgroundColor(String col)
-    {
-        setProperty("background-color", col);
-    }
-
-    public String getBackgroundColor()
-    {
-        return getProperty("background-color");
-    }
-
-    public void setBorderColor(String color)
-    {
-        setProperty("border-color", color);
-    }
-    
-    public void setBorderStyle(String style)
-    {
-        setProperty("border-style", style);
-    }
-    
-    public void setBorderWidth(int width)
-    {
-        setProperty("border-width", width + "px");
-    }
-    
-    public void setFontWeight(String weight)
-    {
-        setProperty("font-weight", weight);
-    }
-    
-    public void setFontSize(float size)
-    {
-        setProperty("font-size", size + "px");
-    }
-    
-    public void setZIndex(int i)
-    {
-        setProperty("z-index", "" + i);
-    }
-    
-    public void setTextAlign(String textAlign)
-    {
-        setProperty("text-align", textAlign);
-    }
 }

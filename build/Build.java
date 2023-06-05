@@ -12,6 +12,7 @@ public class Build extends JavaBuilder
     private static final String TEAVM_VERSION = "0.8.1";
     
     private File jarFile = new File("dist/" + PROJECTNAME + ".jar");
+    private File sourceJarFile = new File("dist/" + PROJECTNAME + "-sources.jar");
     
     public Build() throws IOException, InterruptedException
     {
@@ -32,9 +33,19 @@ public class Build extends JavaBuilder
     {
         clean();
         dist();
+        createSourceJar();
         Maven.getDefaultinstance().installJar(jarFile, "de.exware", PROJECTNAME, getVersion());
+        Maven.getDefaultinstance().installSourceJar(sourceJarFile, "de.exware", PROJECTNAME, getVersion());
     }
 
+    public void createSourceJar() throws IOException
+    {
+        File file = new File("tmp/sourceJar");
+        Utilities.delete(file, true);
+        Utilities.copy("source/java", file, true);
+        jar(sourceJarFile.getAbsolutePath(), file, null);
+    }
+    
     @Override
     public void clean() throws IOException
     {
