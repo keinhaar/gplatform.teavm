@@ -27,3 +27,4 @@ replay_pid*
 /target/
 pom.xml
 /build/classes/
+/tmp/
