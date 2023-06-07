@@ -19,8 +19,6 @@ public class TeavmGPEvent
     
     private Event nativeEvent;
     
-    private int[] nativeMouseEventPosition = null;
-    
     public TeavmGPEvent(Type type, Event nativeEvent) {
         this.type = type;
         this.nativeEvent = nativeEvent;
@@ -65,23 +63,12 @@ public class TeavmGPEvent
     @Override
     public int getClientX()
     {
-        /*if(nativeMouseEventPosition == null)
-            nativeMouseEventPosition = native_getTranslatedMouseEventPosition(nativeEvent);
-        System.out.println("getPositionX: " + ((MouseEvent)nativeEvent).getClientX());
-        System.out.println("nativeTranslatedMouseEvent.getPositionX(): " + nativeMouseEventPosition[0]);
-        
-        return nativeMouseEventPosition[0];*/
         return ((MouseEvent) nativeEvent).getClientX();
     }
 
     @Override
     public int getClientY()
     {
-        /*if(nativeMouseEventPosition == null)
-            nativeMouseEventPosition = native_getTranslatedMouseEventPosition(nativeEvent);
-        System.out.println("getPositionY: " + ((MouseEvent)nativeEvent).getClientY());
-        System.out.println("nativeTranslatedMouseEvent.getPositionY(): " + nativeMouseEventPosition[1]);
-        return nativeMouseEventPosition[1];*/
         return ((MouseEvent) nativeEvent).getClientY();
     }
 
@@ -127,12 +114,4 @@ public class TeavmGPEvent
     {
         throw new RuntimeException("TeavmGPEvent.getChangedTouches() is unsupported."); //TODO: proper implementation
     }
-    
-    
-    /****************** NATIVE ******************/
-    @JSBody(params = {"e"}, script = "var rect = e.target.getBoundingClientRect();\r\n"
-            + "var x = e.clientX - rect.left;\r\n"
-            + "var y = e.clientY - rect.top;"
-            + "return [x, y];")
-    private static native int[] native_getTranslatedMouseEventPosition(JSObject e);
 }
