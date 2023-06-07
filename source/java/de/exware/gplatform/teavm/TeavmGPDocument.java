@@ -53,7 +53,7 @@ public class TeavmGPDocument implements de.exware.gplatform.GPDocument
     @Override
     public GPInputElement createCheckInputElement()
     {
-        return new TeavmGPInputElement(createNativeElement("input"), "check");
+        return new TeavmGPInputElement(createNativeElement("input"), "checkbox");
     }
 
     @Override

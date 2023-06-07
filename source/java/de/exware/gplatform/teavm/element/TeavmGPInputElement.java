@@ -8,7 +8,8 @@ import de.exware.gplatform.teavm.TeavmGPElement;
 
 public class TeavmGPInputElement extends TeavmGPElement implements GPInputElement
 {
-
+    private static final String CHECKED = "checked";
+    
     public TeavmGPInputElement(HTMLElement nativeElement, String type) {
         super(nativeElement);
         ((HTMLInputElement) getNativeElement()).setType(type);
@@ -43,11 +44,19 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
     {
         ((HTMLInputElement) getNativeElement()).setDisabled(b);
     }
-
+    
     @Override
     public void setDefaultChecked(boolean sel)
     {
-        ((HTMLInputElement) getNativeElement()).setChecked(sel); //TODO: proper fix
+        HTMLElement nativeElement = getNativeElement();
+        if(sel) {
+            nativeElement.setAttribute(CHECKED, CHECKED);
+        } else {
+            if(nativeElement.hasAttribute(CHECKED)) {
+                nativeElement.removeAttribute(CHECKED);
+            }
+        }
+        //((HTMLInputElement) getNativeElement()).setChecked(sel); //TODO: proper fix
     }
 
     @Override
