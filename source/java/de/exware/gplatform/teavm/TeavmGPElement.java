@@ -140,10 +140,12 @@ public class TeavmGPElement implements GPElement
     private class EventListenerContainer {
         final String eventName;
         final EventListener<? extends Event> eventListener;
+        final Type eventType;
         
-        public EventListenerContainer(String eventName, EventListener<? extends Event> eventListener) {
+        public EventListenerContainer(String eventName, Type eventType, EventListener<? extends Event> eventListener) {
             this.eventName = eventName;
             this.eventListener = eventListener;
+            this.eventType = eventType;
         }
     }
     
@@ -160,15 +162,18 @@ public class TeavmGPElement implements GPElement
             }
             return;
         }
-        enabledEventListeners.clear();
-        //set the new enabled events
-        enabledEvents = eventTypes;
+        //enabledEventListeners.clear();
+
         //collect the events that need activation
-        for(Type eventType : enabledEvents) {
+        eventCollectionLoop: for(Type eventType : eventTypes) {
+            for(EventListenerContainer eventListenerContainer : enabledEventListeners)
+                if(eventListenerContainer.eventType.equals(eventType))
+                    continue eventCollectionLoop; //ensure to enable one eventType only ones
+            
             switch(eventType) {
                 case ONCHANGE:
                     enabledEventListeners.add(
-                            new EventListenerContainer("change", new EventListener<Event>() {
+                            new EventListenerContainer("change", eventType, new EventListener<Event>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -177,8 +182,9 @@ public class TeavmGPElement implements GPElement
                         );
                     break;
                 case ONCLICK:
+                    LOGGER.log("enabledEvents onclick event for element: " + getNativeElement().getAttribute("elementid"));
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.CLICK, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.CLICK, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -188,7 +194,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONCONTEXTMENU:
                     enabledEventListeners.add(
-                            new EventListenerContainer("contextmenu", new EventListener<MouseEvent>() {
+                            new EventListenerContainer("contextmenu", eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -198,7 +204,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONDBLCLICK:
                     enabledEventListeners.add(
-                            new EventListenerContainer("dblclick", new EventListener<MouseEvent>() {
+                            new EventListenerContainer("dblclick", eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -208,7 +214,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONERROR:
                     enabledEventListeners.add(
-                            new EventListenerContainer("error", new EventListener<Event>() {
+                            new EventListenerContainer("error", eventType, new EventListener<Event>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -218,7 +224,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONFOCUS:
                     enabledEventListeners.add(
-                            new EventListenerContainer("focus", new EventListener<Event>() {
+                            new EventListenerContainer("focus", eventType, new EventListener<Event>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -228,7 +234,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONKEYDOWN:
                     enabledEventListeners.add(
-                            new EventListenerContainer("keydown", new EventListener<KeyboardEvent>() {
+                            new EventListenerContainer("keydown", eventType, new EventListener<KeyboardEvent>() {
                                 @Override
                                 public void handleEvent(KeyboardEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -238,7 +244,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONKEYPRESS:
                     enabledEventListeners.add(
-                            new EventListenerContainer("keypress", new EventListener<KeyboardEvent>() {
+                            new EventListenerContainer("keypress", eventType, new EventListener<KeyboardEvent>() {
                                 @Override
                                 public void handleEvent(KeyboardEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -248,7 +254,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONKEYUP:
                     enabledEventListeners.add(
-                            new EventListenerContainer("keyup", new EventListener<KeyboardEvent>() {
+                            new EventListenerContainer("keyup", eventType, new EventListener<KeyboardEvent>() {
                                 @Override
                                 public void handleEvent(KeyboardEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -258,7 +264,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONLOAD:
                     enabledEventListeners.add(
-                            new EventListenerContainer("load", new EventListener<Event>() {
+                            new EventListenerContainer("load", eventType, new EventListener<Event>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -268,7 +274,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEDOWN:
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.MOUSEDOWN, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.MOUSEDOWN, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -278,7 +284,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEMOVE:
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.MOUSEMOVE, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.MOUSEMOVE, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -288,7 +294,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEOUT:
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.MOUSEOUT, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.MOUSEOUT, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -298,7 +304,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEOVER:
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.MOUSEOVER, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.MOUSEOVER, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -308,7 +314,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEUP:
                     enabledEventListeners.add(
-                            new EventListenerContainer(MouseEvent.MOUSEUP, new EventListener<MouseEvent>() {
+                            new EventListenerContainer(MouseEvent.MOUSEUP, eventType, new EventListener<MouseEvent>() {
                                 @Override
                                 public void handleEvent(MouseEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -318,7 +324,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEWHEEL:
                     enabledEventListeners.add(
-                            new EventListenerContainer("mousewheel", new EventListener<MouseWheelEvent>() {
+                            new EventListenerContainer("mousewheel", eventType, new EventListener<MouseWheelEvent>() {
                                 @Override
                                 public void handleEvent(MouseWheelEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
