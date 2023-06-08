@@ -50,4 +50,14 @@ class TeavmGPStyle implements GPStyle
         return property;
     }
     
+    public void setWidthInPercent(double width)
+    {
+        setProperty("width", width + "%");
+    }
+    
+    public void setHeightInPercent(double height)
+    {
+        setProperty("height", height + "%");
+    }
+    
 }
