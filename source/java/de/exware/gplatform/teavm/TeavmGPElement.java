@@ -162,8 +162,7 @@ public class TeavmGPElement implements GPElement
             }
             return;
         }
-        //enabledEventListeners.clear();
-
+        
         //collect the events that need activation
         eventCollectionLoop: for(Type eventType : eventTypes) {
             for(EventListenerContainer eventListenerContainer : enabledEventListeners)
@@ -182,7 +181,7 @@ public class TeavmGPElement implements GPElement
                         );
                     break;
                 case ONCLICK:
-                    LOGGER.log("enabledEvents onclick event for element: " + getNativeElement().getAttribute("elementid"));
+                    LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "enabledEvents onclick event for element: " + getNativeElement().getAttribute("elementid"));
                     enabledEventListeners.add(
                             new EventListenerContainer(MouseEvent.CLICK, eventType, new EventListener<MouseEvent>() {
                                 @Override
