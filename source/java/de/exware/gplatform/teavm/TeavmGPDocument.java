@@ -8,12 +8,14 @@ import de.exware.gplatform.element.GPCanvasElement;
 import de.exware.gplatform.element.GPImageElement;
 import de.exware.gplatform.element.GPInputElement;
 import de.exware.gplatform.element.GPOptionElement;
+import de.exware.gplatform.element.GPRangeElement;
 import de.exware.gplatform.element.GPSelectElement;
 import de.exware.gplatform.element.GPTextAreaElement;
 import de.exware.gplatform.teavm.element.TeavmGPCanvasElement;
 import de.exware.gplatform.teavm.element.TeavmGPImageElement;
 import de.exware.gplatform.teavm.element.TeavmGPInputElement;
 import de.exware.gplatform.teavm.element.TeavmGPOptionElement;
+import de.exware.gplatform.teavm.element.TeavmGPRangeElement;
 import de.exware.gplatform.teavm.element.TeavmGPSelectElement;
 import de.exware.gplatform.teavm.element.TeavmGPTextAreaElement;
 
@@ -98,5 +100,11 @@ public class TeavmGPDocument implements de.exware.gplatform.GPDocument
         HTMLElement element = HTMLDocument.current().createElement(name);
         element.setAttribute("elementID", elementID++ + "");
         return element;
+    }
+
+    @Override
+    public GPRangeElement createRangeElement() 
+    {
+        return new TeavmGPRangeElement(createNativeElement("input"), "range");
     }
 }

@@ -450,7 +450,8 @@ public class TeavmGPElement implements GPElement
     @Override
     public String getPropertyString(String name)
     {
-        return nativeElement.getStyle().getPropertyValue(name);
+        String prop = nativeElement.getStyle().getPropertyValue(name);
+        return prop;
     }
     
     public void setPropertyString(String name, String value) {

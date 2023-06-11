@@ -50,7 +50,9 @@ public class Build extends JavaBuilder
     public void clean() throws IOException
     {
         Utilities.delete(new File("dist"));
+        Utilities.delete(new File("tmp"));
         Utilities.delete(new File("out"));
+        new File("out").mkdir();
     }
 
     @Override
