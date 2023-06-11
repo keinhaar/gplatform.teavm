@@ -507,7 +507,6 @@ public class TeavmGPElement implements GPElement
     @JSBody(params = {"nativeJSObject"}, script = "var top = 0;\r\n"
             + "    var elem = nativeJSObject;"
             + "    var curr = elem;\r\n"
-            + "    // This intentionally excludes body which has a null offsetParent.\r\n"
             + "    while (curr.offsetParent) {\r\n"
             + "      top -= curr.scrollTop;\r\n"
             + "      curr = curr.parentNode;\r\n"
