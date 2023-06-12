@@ -9,8 +9,8 @@
   <dependencies>
 	<dependency>
 	  <groupId>de.exware</groupId>
-  	  <artifactId>de.exware.gplatform</artifactId>
-  	  <version>1.0</version>
+	  <artifactId>de.exware.gplatform</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
       <groupId>org.teavm</groupId>
