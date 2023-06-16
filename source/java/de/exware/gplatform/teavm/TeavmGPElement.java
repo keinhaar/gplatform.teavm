@@ -491,32 +491,15 @@ public class TeavmGPElement implements GPElement
     }
     
     /******************** NATIVE ****************/
-    @JSBody(params = {"nativeJSObject"}, script = "var left = 0;\r\n"
-            + "    var elem = nativeJSObject;"
-            + "    var curr = nativeJSObject;\r\n"
-            + "    while (curr.offsetParent) {\r\n"
-            + "      left -= curr.scrollLeft;\r\n"
-            + "      curr = curr.parentNode;\r\n"
-            + "    }\r\n"
-            + "    while (elem) {\r\n"
-            + "      left += elem.offsetLeft;\r\n"
-            + "      elem = elem.offsetParent;\r\n"
-            + "    }\r\n"
-            + "    return left; ")
+    @JSBody(params = {"nativeJSObject"}, script =
+            "var elem = nativeJSObject;"
+            + "var rect = elem.getBoundingClientRect && elem.getBoundingClientRect();"
+            + "return rect.left | 0;")
     private static native double native_getAbsoluteLeft(JSObject nativeJSObject);
     
-    @JSBody(params = {"nativeJSObject"}, script = "var top = 0;\r\n"
-            + "    var elem = nativeJSObject;"
-            + "    var curr = elem;\r\n"
-            + "    // This intentionally excludes body which has a null offsetParent.\r\n"
-            + "    while (curr.offsetParent) {\r\n"
-            + "      top -= curr.scrollTop;\r\n"
-            + "      curr = curr.parentNode;\r\n"
-            + "    }\r\n"
-            + "    while (elem) {\r\n"
-            + "      top += elem.offsetTop;\r\n"
-            + "      elem = elem.offsetParent;\r\n"
-            + "    }\r\n"
-            + "    return top;")
+    @JSBody(params = {"nativeJSObject"}, script = 
+            "var elem = nativeJSObject;"
+            + "var rect = elem.getBoundingClientRect && elem.getBoundingClientRect();"
+            + "return rect.top | 0;")
     private static native double native_getAbsoluteTop(JSObject nativeJSObject);
 }
