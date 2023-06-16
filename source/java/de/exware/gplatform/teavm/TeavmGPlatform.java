@@ -24,7 +24,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
     private static HTMLCanvasElement measureCanvas = (HTMLCanvasElement) HTMLDocument.current().createElement("canvas");
-    private static final String SERVER_ROOT = "../../"; 
+    private static final String SERVER_ROOT = "./"; 
     
     private TeavmGPlatform()
     {}
@@ -130,6 +130,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
         return new TeavmGPStorage();
     }
     
+    @Override
     public void clearSelection() {
         native_clearSelection();
         LOGGER.log(Logger.LEVEL_NATIVE, "clearSelection() -> success");

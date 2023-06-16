@@ -13,4 +13,10 @@ public class TeavmGPRangeElement extends TeavmGPElement implements GPRangeElemen
         super(nativeElement);
         ((HTMLInputElement) getNativeElement()).setType(type);
     }
+    
+    @Override
+    public int getValueInt() 
+    {
+        return Integer.parseInt(((HTMLInputElement) getNativeElement()).getValue());
+    }
 }
