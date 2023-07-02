@@ -24,7 +24,8 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
     private static HTMLCanvasElement measureCanvas = (HTMLCanvasElement) HTMLDocument.current().createElement("canvas");
-    private static final String SERVER_ROOT = "./"; 
+    private static final String SERVER_ROOT = "./";
+    
     
     private TeavmGPlatform()
     {}
@@ -143,4 +144,3 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     @JSBody(params = {}, script = "(window.getSelection ? window.getSelection() : document.selection).empty();")
     private static native void native_clearSelection();
 }
-
