@@ -19,10 +19,6 @@ import de.exware.gplatform.teavm.timer.TeavmGPTimer;
 import de.exware.gplatform.timer.GPTimer;
 
 public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
-    public enum Browser {
-        UNDEFINDED, OPERA, EDGE, CHROME, SAFARI, FIREFOX, INTERNET_EXPLORER
-    }
-
     private static final Logger LOGGER = new Logger(TeavmGPlatform.class);
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
@@ -48,7 +44,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
     public static void init() {
         new TeavmGPlatform();
         System.setProperty("os.name", browser.name());
-        System.setProperty("java.vm.name", "TEAVM");
+        System.setProperty("java.vm.name", VirtualMachineProvider.TEAVM.name());
     }
 
     @Override
@@ -131,9 +127,15 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
         native_clearSelection();
         LOGGER.log(Logger.LEVEL_NATIVE, "clearSelection() -> success");
     }
-
+    
+    @Override
     public Browser getBrowser() {
         return browser;
+    }
+    
+    @Override
+    public VirtualMachineProvider getVirtualMachineProvider() {
+        return VirtualMachineProvider.TEAVM;
     }
     
     private static Browser determineBrowser() {
@@ -151,9 +153,9 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
         case "IE":
             return Browser.INTERNET_EXPLORER;
         case "unknown":
-            return Browser.UNDEFINDED;
+            return Browser.UNDEFINED;
         default:
-            return Browser.UNDEFINDED;
+            return Browser.UNDEFINED;
         }
     }
 
