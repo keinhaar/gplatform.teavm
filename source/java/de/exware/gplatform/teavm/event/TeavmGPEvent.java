@@ -19,7 +19,8 @@ public class TeavmGPEvent
     
     private Event nativeEvent;
     
-    public TeavmGPEvent(Type type, Event nativeEvent) {
+    public TeavmGPEvent(Type type, Event nativeEvent)
+    {
         this.type = type;
         this.nativeEvent = nativeEvent;
     }

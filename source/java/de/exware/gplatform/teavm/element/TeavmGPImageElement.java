@@ -9,7 +9,8 @@ import de.exware.gplatform.teavm.TeavmGPElement;
 public class TeavmGPImageElement extends TeavmGPElement implements GPImageElement
 {
 
-    public TeavmGPImageElement(HTMLElement nativeElement) {
+    public TeavmGPImageElement(HTMLElement nativeElement)
+    {
         super(nativeElement);
     }
 

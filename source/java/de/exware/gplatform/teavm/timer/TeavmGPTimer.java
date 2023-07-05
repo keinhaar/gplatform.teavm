@@ -8,16 +8,18 @@ import de.exware.gplatform.timer.GPTimerTask;
 
 public class TeavmGPTimer implements GPTimer
 {
-    public TeavmGPTimer() {
+    public TeavmGPTimer()
+    {
     }
     
     @Override
     public void schedule(GPTimerTask task, int delay)
     {
-        Window.setTimeout(new TimerHandler() {
-            
+        Window.setTimeout(new TimerHandler() 
+        {
             @Override
-            public void onTimer() {
+            public void onTimer()
+            {
                 task.execute();
             }
         }, delay);
@@ -26,19 +28,27 @@ public class TeavmGPTimer implements GPTimer
     @Override
     public void scheduleRepeating(GPTimerTask task, int delay, int interval)
     {
-        Thread thread = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable()
+        {
             @Override
-            public void run() {
-                try {
+            public void run()
+            {
+                try
+                {
                     Thread.sleep(delay);
-                } catch (Exception e) {
+                } 
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
                 while(!task.isCanceled()) {
                     task.execute();
-                    try {
+                    try
+                    {
                         Thread.sleep(interval);
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         e.printStackTrace();
                     }
                 }
