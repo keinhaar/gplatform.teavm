@@ -490,6 +490,17 @@ public class TeavmGPElement implements GPElement
         return nativeElement;
     }
     
+    @Override
+    public Object getPropertyObject(String name) {
+        /*
+         * experimental implementation because I don't know the behavior of a JSObject
+         * which try's to be a Java Object without proper implementation
+         * TODO: proper implementation
+         * throw new RuntimeException("TeavmGPElement.getPropertyObject is unsupported.");
+         */
+        return native_getPropertyObject(nativeElement, name);
+    }
+    
     /******************** NATIVE ****************/
     @JSBody(params = {"nativeJSObject"}, script =
             "var elem = nativeJSObject;"
@@ -502,9 +513,8 @@ public class TeavmGPElement implements GPElement
             + "var rect = elem.getBoundingClientRect && elem.getBoundingClientRect();"
             + "return rect.top | 0;")
     private static native double native_getAbsoluteTop(JSObject nativeJSObject);
-
-    @Override
-    public Object getPropertyObject(String name) {
-        throw new RuntimeException("TeavmGPElement.getPropertyObject is unsupported."); //TODO: proper implementation
-    }
+    
+    @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return nativeJSObject[propertyName];")
+    private static  native JSObject native_getPropertyObject(JSObject nativeJSObject, String propertyName);
+    
 }
