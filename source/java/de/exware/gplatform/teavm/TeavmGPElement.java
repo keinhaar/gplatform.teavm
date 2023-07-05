@@ -502,4 +502,9 @@ public class TeavmGPElement implements GPElement
             + "var rect = elem.getBoundingClientRect && elem.getBoundingClientRect();"
             + "return rect.top | 0;")
     private static native double native_getAbsoluteTop(JSObject nativeJSObject);
+
+    @Override
+    public Object getPropertyObject(String name) {
+        throw new RuntimeException("TeavmGPElement.getPropertyObject is unsupported."); //TODO: proper implementation
+    }
 }

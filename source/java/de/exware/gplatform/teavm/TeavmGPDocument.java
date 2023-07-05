@@ -5,15 +5,21 @@ import org.teavm.jso.dom.html.HTMLElement;
 
 import de.exware.gplatform.GPElement;
 import de.exware.gplatform.element.GPCanvasElement;
+import de.exware.gplatform.element.GPFileInputElement;
+import de.exware.gplatform.element.GPFormElement;
 import de.exware.gplatform.element.GPImageElement;
 import de.exware.gplatform.element.GPInputElement;
+import de.exware.gplatform.element.GPLabelElement;
 import de.exware.gplatform.element.GPOptionElement;
 import de.exware.gplatform.element.GPRangeElement;
 import de.exware.gplatform.element.GPSelectElement;
 import de.exware.gplatform.element.GPTextAreaElement;
 import de.exware.gplatform.teavm.element.TeavmGPCanvasElement;
+import de.exware.gplatform.teavm.element.TeavmGPFileInputElement;
+import de.exware.gplatform.teavm.element.TeavmGPFormElement;
 import de.exware.gplatform.teavm.element.TeavmGPImageElement;
 import de.exware.gplatform.teavm.element.TeavmGPInputElement;
+import de.exware.gplatform.teavm.element.TeavmGPLabelElement;
 import de.exware.gplatform.teavm.element.TeavmGPOptionElement;
 import de.exware.gplatform.teavm.element.TeavmGPRangeElement;
 import de.exware.gplatform.teavm.element.TeavmGPSelectElement;
@@ -106,5 +112,23 @@ public class TeavmGPDocument implements de.exware.gplatform.GPDocument
     public GPRangeElement createRangeElement() 
     {
         return new TeavmGPRangeElement(createNativeElement("input"), "range");
+    }
+
+    @Override
+    public GPFormElement createFormElement() 
+    {
+        return new TeavmGPFormElement(createNativeElement("form"));
+    }
+
+    @Override
+    public GPLabelElement createLabelElement() 
+    {
+        return new TeavmGPLabelElement(createNativeElement("label"));
+    }
+
+    @Override
+    public GPFileInputElement createFileInputElement() 
+    {
+        return new TeavmGPFileInputElement(createNativeElement("input"));
     }
 }
