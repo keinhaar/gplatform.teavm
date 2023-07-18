@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.exware</groupId>
   <artifactId>de.exware.gplatform.teavm</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <properties>
     <teavm.version>0.8.1</teavm.version>
   </properties>
