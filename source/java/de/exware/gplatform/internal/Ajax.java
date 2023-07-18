@@ -2,12 +2,14 @@ package de.exware.gplatform.internal;
 
 import java.io.IOException;
 
+import org.teavm.interop.Async;
 import org.teavm.interop.AsyncCallback;
 import org.teavm.jso.ajax.ReadyStateChangeHandler;
 import org.teavm.jso.ajax.XMLHttpRequest;
 
 public class Ajax {
-    
+    @Async
+    public static native String POST(String url, String urlencodedData) throws IOException;
     public static void POST(String url, String urlencodedData, AsyncCallback<String> callback)
     {
         XMLHttpRequest xhr = XMLHttpRequest.create();
@@ -38,6 +40,8 @@ public class Ajax {
         xhr.send(urlencodedData);
     }
     
+    @Async
+    public static native String GET(String url, String urlencodedData) throws IOException;
     public static void GET(String url, String urlencodedData, AsyncCallback<String> callback)
     {
         XMLHttpRequest xhr = XMLHttpRequest.create();

@@ -372,10 +372,9 @@ public class TeavmGPElement implements GPElement
     @Override
     public void removeAllChildren()
     {
-        NodeList<Node> nodeList = nativeElement.getChildNodes();
-        for(int i=0; i<nodeList.getLength(); i++) {
-            HTMLElement childElement = (HTMLElement) nodeList.get(i);
-            childElement.delete();
+        for(GPElement child : getChildElements())
+        {
+            removeChild(getParentElement());
         }
     }
 
@@ -488,7 +487,7 @@ public class TeavmGPElement implements GPElement
         return nativeElement.getClientWidth();
     }
     
-    private HTMLElement getHtmlElementFromGPElement(GPElement element)
+    private static HTMLElement getHtmlElementFromGPElement(GPElement element)
     {
         return ((TeavmGPElement)element).nativeElement;
     }
