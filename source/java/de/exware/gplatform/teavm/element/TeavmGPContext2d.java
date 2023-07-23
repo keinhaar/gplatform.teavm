@@ -9,7 +9,8 @@ import de.exware.gplatform.element.GPImageElement;
 public class TeavmGPContext2d implements GPContext2d
 {
     private CanvasRenderingContext2D nativeRenderingContext2D;
-    public TeavmGPContext2d(CanvasRenderingContext2D canvasRenderingContext2D) {
+    public TeavmGPContext2d(CanvasRenderingContext2D canvasRenderingContext2D)
+    {
         this.nativeRenderingContext2D = canvasRenderingContext2D;
     }
 

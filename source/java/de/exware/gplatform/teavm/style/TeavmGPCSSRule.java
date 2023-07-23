@@ -5,12 +5,14 @@ import org.teavm.jso.JSObject;
 import de.exware.gplatform.internal.Logger;
 import de.exware.gplatform.style.CSSRule;
 
-public class TeavmGPCSSRule implements CSSRule {
+public class TeavmGPCSSRule implements CSSRule
+{
     private static final Logger LOGGER = new Logger(TeavmGPCSSRule.class); 
     private static int instanceCounter = 0;
     private JSObject nativeJSObject;
     
-    public TeavmGPCSSRule(JSObject nativeJSObject) {
+    public TeavmGPCSSRule(JSObject nativeJSObject)
+    {
         this.nativeJSObject = nativeJSObject;
         LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance " + instanceCounter++);
     }
@@ -61,30 +63,35 @@ public class TeavmGPCSSRule implements CSSRule {
     }
     
     @Override
-    public String getSelector() {
+    public String getSelector()
+    {
         String selector = native_getSelector(nativeJSObject);
         LOGGER.log(Logger.LEVEL_NATIVE, "getSelector -> success");
         return selector;
     }
     
-    protected String getPropertyName(int i) {
+    protected String getPropertyName(int i)
+    {
         String name = native_getPropertyName(nativeJSObject, i);
         LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyName -> success");
         return name;
     }
 
-    protected String getPropertyValue(String name) {
+    protected String getPropertyValue(String name)
+    {
         String value = native_getPropertyValue(nativeJSObject, name);
         LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyValue -> success");
         return value;
     }
 
-    protected void setPropertyValue(String name, String value) {
+    protected void setPropertyValue(String name, String value)
+    {
         native_setPropertyValue(nativeJSObject, name, value);
         LOGGER.log(Logger.LEVEL_NATIVE, "setPropertyValue -> success");
     }
 
-    protected int getPropertyCount() {
+    protected int getPropertyCount()
+    {
         int count = native_getPropertyCount(nativeJSObject);
         LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyCount -> success");
         return count;

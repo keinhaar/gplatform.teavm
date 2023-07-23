@@ -10,7 +10,8 @@ class TeavmGPStyle implements GPStyle
     private static final Logger LOGGER = new Logger(TeavmGPStyle.class);
     private HTMLElement nativeElement;
     
-    public TeavmGPStyle(HTMLElement nativeElement) {
+    public TeavmGPStyle(HTMLElement nativeElement)
+    {
         this.nativeElement = nativeElement;
         LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance");
     }

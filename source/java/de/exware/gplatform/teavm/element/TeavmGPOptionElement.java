@@ -9,7 +9,8 @@ import de.exware.gplatform.teavm.TeavmGPElement;
 public class TeavmGPOptionElement extends TeavmGPElement implements GPOptionElement
 {
 
-    public TeavmGPOptionElement(HTMLElement nativeElement) {
+    public TeavmGPOptionElement(HTMLElement nativeElement)
+    {
         super(nativeElement);
     }
 

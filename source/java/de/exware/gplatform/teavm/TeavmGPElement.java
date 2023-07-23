@@ -31,7 +31,8 @@ public class TeavmGPElement implements GPElement
     
     private Type[] enabledEvents;
     
-    public TeavmGPElement(HTMLElement nativeElement) {
+    public TeavmGPElement(HTMLElement nativeElement)
+    {
         this.nativeElement = nativeElement;
     }
 
@@ -137,7 +138,8 @@ public class TeavmGPElement implements GPElement
         nativeElement.getClassList().remove(classname);
     }
     
-    private class EventListenerContainer {
+    private class EventListenerContainer
+    {
         final String eventName;
         final EventListener<? extends Event> eventListener;
         final Type eventType;
@@ -156,7 +158,8 @@ public class TeavmGPElement implements GPElement
     {
         //remove all the previous enabled event listeners
         //if eventTypes is null
-        if(eventTypes == null) {
+        if(eventTypes == null)
+        {
             for(EventListenerContainer eventListenerContainer : enabledEventListeners) {
                 nativeElement.removeEventListener(eventListenerContainer.eventName, eventListenerContainer.eventListener);
             }
@@ -164,7 +167,8 @@ public class TeavmGPElement implements GPElement
         }
         
         //collect the events that need activation
-        eventCollectionLoop: for(Type eventType : eventTypes) {
+        eventCollectionLoop: for(Type eventType : eventTypes)
+        {
             for(EventListenerContainer eventListenerContainer : enabledEventListeners)
                 if(eventListenerContainer.eventType.equals(eventType))
                     continue eventCollectionLoop; //ensure to enable one eventType only ones
@@ -340,7 +344,8 @@ public class TeavmGPElement implements GPElement
             }
         }
         //add the events to the native element
-        for(EventListenerContainer eventListenerContainer : enabledEventListeners) {
+        for(EventListenerContainer eventListenerContainer : enabledEventListeners)
+        {
             nativeElement.addEventListener(eventListenerContainer.eventName, eventListenerContainer.eventListener);
         }
     }
@@ -367,10 +372,9 @@ public class TeavmGPElement implements GPElement
     @Override
     public void removeAllChildren()
     {
-        NodeList<Node> nodeList = nativeElement.getChildNodes();
-        for(int i=0; i<nodeList.getLength(); i++) {
-            HTMLElement childElement = (HTMLElement) nodeList.get(i);
-            childElement.delete();
+        for(GPElement child : getChildElements())
+        {
+            removeChild(getParentElement());
         }
     }
 
@@ -454,7 +458,8 @@ public class TeavmGPElement implements GPElement
         return prop;
     }
     
-    public void setPropertyString(String name, String value) {
+    public void setPropertyString(String name, String value)
+    {
         nativeElement.getStyle().setProperty(name, value);
     }
 
@@ -482,12 +487,26 @@ public class TeavmGPElement implements GPElement
         return nativeElement.getClientWidth();
     }
     
-    private HTMLElement getHtmlElementFromGPElement(GPElement element) {
+    private static HTMLElement getHtmlElementFromGPElement(GPElement element)
+    {
         return ((TeavmGPElement)element).nativeElement;
     }
     
-    public HTMLElement getNativeElement() {
+    public HTMLElement getNativeElement()
+    {
         return nativeElement;
+    }
+    
+    @Override
+    public Object getPropertyObject(String name)
+    {
+        /*
+         * experimental implementation because I don't know the behavior of a JSObject
+         * which try's to be a Java Object without proper implementation
+         * TODO: proper implementation
+         * throw new RuntimeException("TeavmGPElement.getPropertyObject is unsupported.");
+         */
+        return native_getPropertyObject(nativeElement, name);
     }
     
     /******************** NATIVE ****************/
@@ -502,9 +521,8 @@ public class TeavmGPElement implements GPElement
             + "var rect = elem.getBoundingClientRect && elem.getBoundingClientRect();"
             + "return rect.top | 0;")
     private static native double native_getAbsoluteTop(JSObject nativeJSObject);
-
-    @Override
-    public Object getPropertyObject(String name) {
-        throw new RuntimeException("TeavmGPElement.getPropertyObject is unsupported."); //TODO: proper implementation
-    }
+    
+    @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return nativeJSObject[propertyName];")
+    private static  native JSObject native_getPropertyObject(JSObject nativeJSObject, String propertyName);
+    
 }

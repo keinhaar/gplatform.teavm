@@ -10,7 +10,8 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
 {
     private static final String CHECKED = "checked";
     
-    public TeavmGPInputElement(HTMLElement nativeElement, String type) {
+    public TeavmGPInputElement(HTMLElement nativeElement, String type)
+    {
         super(nativeElement);
         ((HTMLInputElement) getNativeElement()).setType(type);
     }
@@ -49,10 +50,13 @@ public class TeavmGPInputElement extends TeavmGPElement implements GPInputElemen
     public void setDefaultChecked(boolean sel)
     {
         HTMLElement nativeElement = getNativeElement();
-        if(sel) {
+        if(sel)
+        {
             nativeElement.setAttribute(CHECKED, CHECKED);
-        } else {
-            if(nativeElement.hasAttribute(CHECKED)) {
+        } else
+        {
+            if(nativeElement.hasAttribute(CHECKED))
+            {
                 nativeElement.removeAttribute(CHECKED);
             }
         }

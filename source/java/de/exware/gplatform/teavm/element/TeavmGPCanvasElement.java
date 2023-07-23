@@ -12,7 +12,8 @@ public class TeavmGPCanvasElement extends TeavmGPElement
     implements GPCanvasElement
 {
 
-    public TeavmGPCanvasElement(HTMLElement nativeElement) {
+    public TeavmGPCanvasElement(HTMLElement nativeElement)
+    {
         super(nativeElement);
     }
 

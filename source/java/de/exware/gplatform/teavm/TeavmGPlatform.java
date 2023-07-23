@@ -18,7 +18,8 @@ import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
 import de.exware.gplatform.timer.GPTimer;
 
-public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
+public class TeavmGPlatform extends de.exware.gplatform.GPlatform
+{
     private static final Logger LOGGER = new Logger(TeavmGPlatform.class);
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
@@ -26,29 +27,34 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
     private static final String SERVER_ROOT = "./";
     private static Browser browser = null;
 
-    private TeavmGPlatform() {
+    private TeavmGPlatform()
+    {
         super();
         browser = determineBrowser();
     }
 
     @Override
-    public GPDocument getDocument() {
+    public GPDocument getDocument()
+    {
         return document;
     }
 
     @Override
-    public GPWindow getWindow() {
+    public GPWindow getWindow()
+    {
         return window;
     }
 
-    public static void init() {
+    public static void init()
+    {
         new TeavmGPlatform();
         System.setProperty("os.name", browser.name());
         System.setProperty("java.vm.name", VirtualMachineProvider.TEAVM.name());
     }
 
     @Override
-    public double stringWidth(String font, String text) {
+    public double stringWidth(String font, String text)
+    {
         double width = 0;
         CanvasRenderingContext2D g2d = (CanvasRenderingContext2D) measureCanvas.getContext("2d");
         g2d.setFont(font);
@@ -58,7 +64,8 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
     }
 
     @Override
-    public double getDevicePixelRatio() {
+    public double getDevicePixelRatio()
+    {
         double devicePixelRatio = native_getDevicePixelRatio();
         LOGGER.log(Logger.LEVEL_NATIVE, "getDevicePixelRatio() -> success");
         return devicePixelRatio;
@@ -68,7 +75,8 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
      * @return returns SERVER_ROOT
      */
     @Override
-    public String getModuleBaseForStaticFiles() {
+    public String getModuleBaseForStaticFiles()
+    {
         return SERVER_ROOT;
     }
 
@@ -76,70 +84,84 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform {
      * @return returns SERVER_ROOT
      */
     @Override
-    public String getModuleBaseURL() {
+    public String getModuleBaseURL()
+    {
         return SERVER_ROOT;
     }
 
     @Override
-    public GPStyleSheet getStyleSheet(int index) {
+    public GPStyleSheet getStyleSheet(int index)
+    {
         GPStyleSheet gpStyleSheet = TeavmGPStyleSheet.get(index);
         return gpStyleSheet;
     }
 
     @Override
-    public int getStyleSheetCount() {
+    public int getStyleSheetCount()
+    {
         return TeavmGPStyleSheet.count();
     }
 
     @Override
-    public GPTimer createTimer() {
+    public GPTimer createTimer()
+    {
         return new TeavmGPTimer();
     }
 
     @Override
-    public void alert(String text) {
+    public void alert(String text)
+    {
         Window.alert(text);
     }
 
     @Override
-    public void loadData(String url, Callback callback) {
-        Ajax.get(url, new AsyncCallback<String>() {
-
+    public void loadData(String url, Callback callback)
+    {
+        Ajax.GET(url, "", new AsyncCallback<String>()
+        {
             @Override
-            public void error(Throwable e) {
+            public void error(Throwable e)
+            {
                 callback.onError(e);
             }
 
             @Override
-            public void complete(String result) {
+            public void complete(String result)
+            {
                 callback.onSuccess(200, result);
             }
         });
     }
 
     @Override
-    public GPStorage getLocalStorage() {
+    public GPStorage getLocalStorage()
+    {
         return new TeavmGPStorage();
     }
 
     @Override
-    public void clearSelection() {
+    public void clearSelection()
+    {
         native_clearSelection();
         LOGGER.log(Logger.LEVEL_NATIVE, "clearSelection() -> success");
     }
     
     @Override
-    public Browser getBrowser() {
+    public Browser getBrowser()
+    {
         return browser;
     }
     
     @Override
-    public VirtualMachineProvider getVirtualMachineProvider() {
+    public VirtualMachineProvider getVirtualMachineProvider()
+    {
         return VirtualMachineProvider.TEAVM;
     }
     
-    private static Browser determineBrowser() {
-        switch (native_getBrowserName()) {
+    private static Browser determineBrowser()
+    {
+        switch (native_getBrowserName())
+        {
         case "Opera":
             return Browser.OPERA;
         case "Edge":

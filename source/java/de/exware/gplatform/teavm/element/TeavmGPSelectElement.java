@@ -10,7 +10,8 @@ import de.exware.gplatform.teavm.TeavmGPElement;
 public class TeavmGPSelectElement extends TeavmGPElement implements GPSelectElement
 {
 
-    public TeavmGPSelectElement(HTMLElement nativeElement) {
+    public TeavmGPSelectElement(HTMLElement nativeElement) 
+    {
         super(nativeElement);
     }
 

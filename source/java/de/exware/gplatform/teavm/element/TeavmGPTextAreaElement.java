@@ -10,7 +10,8 @@ public class TeavmGPTextAreaElement extends TeavmGPElement
     implements GPTextAreaElement
 {
 
-    public TeavmGPTextAreaElement(HTMLElement nativeElement) {
+    public TeavmGPTextAreaElement(HTMLElement nativeElement)
+    {
         super(nativeElement);
     }
 
