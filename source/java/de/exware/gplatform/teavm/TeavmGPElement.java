@@ -33,6 +33,10 @@ public class TeavmGPElement implements GPElement
     
     public TeavmGPElement(HTMLElement nativeElement)
     {
+        if(nativeElement == null)
+        {
+            System.out.println("WARNING - Created TeavmGPElement without a native element.");
+        }
         this.nativeElement = nativeElement;
     }
 
@@ -374,7 +378,7 @@ public class TeavmGPElement implements GPElement
     {
         for(GPElement child : getChildElements())
         {
-            removeChild(getParentElement());
+            removeChild(child);
         }
     }
 
