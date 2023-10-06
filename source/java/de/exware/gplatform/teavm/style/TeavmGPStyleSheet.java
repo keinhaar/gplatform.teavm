@@ -67,7 +67,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         TeavmGPStyleSheet teavmGPStyleSheet = teavmGPStyleSheetInstanceCache.get(index);
         if(teavmGPStyleSheet == null)
         {
-            teavmGPStyleSheet = new TeavmGPStyleSheet(native_get(index));
+            teavmGPStyleSheet = new TeavmGPStyleSheet(native_getStylesheet(index));
             teavmGPStyleSheetInstanceCache.put(index, teavmGPStyleSheet);
         }
         LOGGER.log(Logger.LEVEL_NATIVE, "get -> success");
@@ -97,7 +97,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
     private static native int native_getRuleCount(JSObject nativeJSObject);
     
     @JSBody(params = {"index"}, script = "return document.styleSheets[index];")
-    private static native JSObject native_get(int index);
+    private static native JSObject native_getStylesheet(int index);
     
     @JSBody(params = {"nativeJSObject"}, script = "return nativeJSObject.href;")
     private static native String native_getHref(JSObject nativeJSObject);
