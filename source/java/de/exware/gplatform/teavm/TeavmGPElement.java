@@ -62,6 +62,12 @@ public class TeavmGPElement implements GPElement
     }
 
     @Override
+    public boolean hasClassName(String className)
+    {
+        return nativeElement.getClassList().contains(className);
+    }
+
+    @Override
     public void addClassName(String className)
     {
         nativeElement.getClassList().add(className);
@@ -484,6 +490,12 @@ public class TeavmGPElement implements GPElement
     {
         nativeElement.focus();
     }
+
+    @Override
+    public boolean hasFocus()
+    {
+        return native_hasElementFocus(nativeElement);
+    }
     
     @Override
     public int getClientWidth()
@@ -528,5 +540,7 @@ public class TeavmGPElement implements GPElement
     
     @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return nativeJSObject[propertyName];")
     private static  native JSObject native_getPropertyObject(JSObject nativeJSObject, String propertyName);
-    
+
+    @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return (nativeJSObject == document.activeElement) && document.hasFocus();")
+    private static native boolean native_hasElementFocus(JSObject nativeJSObject);
 }
