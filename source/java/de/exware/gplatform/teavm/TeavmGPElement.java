@@ -541,6 +541,6 @@ public class TeavmGPElement implements GPElement
     @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return nativeJSObject[propertyName];")
     private static  native JSObject native_getPropertyObject(JSObject nativeJSObject, String propertyName);
 
-    @JSBody(params = {"nativeJSObject", "propertyName"}, script = "return (nativeJSObject == document.activeElement) && document.hasFocus();")
+    @JSBody(params = {"nativeJSObject"}, script = "return (nativeJSObject == document.activeElement) && document.hasFocus();")
     private static native boolean native_hasElementFocus(JSObject nativeJSObject);
 }
