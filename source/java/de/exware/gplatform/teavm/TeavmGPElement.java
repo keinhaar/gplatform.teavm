@@ -462,6 +462,24 @@ public class TeavmGPElement implements GPElement
     }
     
     @Override
+    public String getAttribute(String name)
+    {
+        return nativeElement.getAttribute(name);
+    }
+
+    @Override
+    public boolean hasAttribute(String name)
+    {
+        return nativeElement.hasAttribute(name);
+    }
+
+    @Override
+    public void removeAttribute(String name)
+    {
+        nativeElement.removeAttribute(name);
+    }
+    
+    @Override
     public String getPropertyString(String name)
     {
         String prop = nativeElement.getStyle().getPropertyValue(name);
