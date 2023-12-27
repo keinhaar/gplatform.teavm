@@ -346,11 +346,11 @@ public class TeavmGPElement implements GPElement
                         );
                     break;
                 case ONTOUCHEND:
-                    throw new Error("Unsupported event: \"ontouchend\"");
+//                    throw new Error("Unsupported event: \"ontouchend\"");
                 case ONTOUCHMOVE:
-                    throw new Error("Unsupported event: \"ontouchmove\"");
+//                    throw new Error("Unsupported event: \"ontouchmove\"");
                 case ONTOUCHSTART:
-                    throw new Error("Unsupported event: \"ontouchstart\"");
+//                    throw new Error("Unsupported event: \"ontouchstart\"");
             }
         }
         //add the events to the native element
