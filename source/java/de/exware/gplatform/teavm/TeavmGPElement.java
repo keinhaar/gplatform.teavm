@@ -418,16 +418,20 @@ public class TeavmGPElement implements GPElement
     }
 
     @Override
-    public void insertAfter(GPElement before, GPElement after)
+    public void insertAfter(GPElement newChild, GPElement after)
     {
-        //referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-        nativeElement
-        .getParentNode()
-        .insertBefore(
-                getHtmlElementFromGPElement(before),
-                getHtmlElementFromGPElement(after)
-                .getNextSibling()
-                );
+        if(after != null)
+        {
+            nativeElement
+            .insertBefore(
+                    getHtmlElementFromGPElement(newChild),
+                    getHtmlElementFromGPElement(after)
+                    );
+        }
+        else
+        {
+            nativeElement.appendChild(getHtmlElementFromGPElement(newChild));
+        }
     }
 
     @Override
