@@ -51,14 +51,22 @@ class TeavmGPStyle implements GPStyle
         return property;
     }
     
+    @Override
     public void setWidthInPercent(double width)
     {
         setProperty("width", width + "%");
     }
     
+    @Override
     public void setHeightInPercent(double height)
     {
         setProperty("height", height + "%");
     }
-    
+
+    @Override
+    public void clearProperty(String name) 
+    {
+        name = camelCaseToCSS(name);
+        nativeElement.getStyle().removeProperty(name);        
+    }
 }
