@@ -9,7 +9,8 @@ import org.teavm.jso.dom.events.MouseEvent;
  * @author home
  *
  */
-public interface MouseWheelEvent extends MouseEvent {
+public interface MouseWheelEvent extends MouseEvent
+{
     public static String MOUSEWHEELEVENT = "mousewheel";
 
     long MODE_DOM_DELTA_PIXEL = 0x00;
