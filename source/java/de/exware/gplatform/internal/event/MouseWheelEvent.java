@@ -1,4 +1,4 @@
-package de.exware.gplatform.internal;
+package de.exware.gplatform.internal.event;
 
 import org.teavm.jso.JSProperty;
 import org.teavm.jso.dom.events.Event;
@@ -10,6 +10,8 @@ import org.teavm.jso.dom.events.MouseEvent;
  *
  */
 public interface MouseWheelEvent extends MouseEvent {
+    public static String MOUSEWHEELEVENT = "mousewheel";
+
     long MODE_DOM_DELTA_PIXEL = 0x00;
     long MODE_DOM_DELTA_LINE = 0x01;
     long MODE_DOM_DELTA_PAGE = 0x02;
@@ -34,6 +36,4 @@ public interface MouseWheelEvent extends MouseEvent {
      */
     @JSProperty
     long getDeltaMode();
-    
-    //void initEvent(String eventTypeArg, boolean canBubbleArg, boolean cancelableArg);
 }

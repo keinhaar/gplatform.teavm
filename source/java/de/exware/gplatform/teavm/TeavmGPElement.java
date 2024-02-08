@@ -18,7 +18,8 @@ import de.exware.gplatform.GPStyle;
 import de.exware.gplatform.event.GPEvent.Type;
 import de.exware.gplatform.event.GPEventListener;
 import de.exware.gplatform.internal.Logger;
-import de.exware.gplatform.internal.MouseWheelEvent;
+import de.exware.gplatform.internal.event.MouseWheelEvent;
+import de.exware.gplatform.internal.event.TouchEvent;
 import de.exware.gplatform.teavm.event.TeavmGPEvent;
 
 public class TeavmGPElement implements GPElement
@@ -337,7 +338,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONMOUSEWHEEL:
                     enabledEventListeners.add(
-                            new EventListenerContainer("mousewheel", eventType, new EventListener<MouseWheelEvent>() {
+                            new EventListenerContainer(MouseWheelEvent.MOUSEWHEELEVENT, eventType, new EventListener<MouseWheelEvent>() {
                                 @Override
                                 public void handleEvent(MouseWheelEvent event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -345,12 +346,36 @@ public class TeavmGPElement implements GPElement
                             })
                         );
                     break;
-                case ONTOUCHEND:
-//                    throw new Error("Unsupported event: \"ontouchend\"");
-                case ONTOUCHMOVE:
-//                    throw new Error("Unsupported event: \"ontouchmove\"");
                 case ONTOUCHSTART:
-//                    throw new Error("Unsupported event: \"ontouchstart\"");
+                    enabledEventListeners.add(
+                            new EventListenerContainer(TouchEvent.TOUCHSTART, eventType, new EventListener<TouchEvent>() {
+                                @Override
+                                public void handleEvent(TouchEvent event) {
+                                    gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
+                                }
+                            })
+                        );
+                    break;
+                case ONTOUCHEND:
+                    enabledEventListeners.add(
+                            new EventListenerContainer(TouchEvent.TOUCHEND, eventType, new EventListener<TouchEvent>() {
+                                @Override
+                                public void handleEvent(TouchEvent event) {
+                                    gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
+                                }
+                            })
+                        );
+                    break;
+                case ONTOUCHMOVE:
+                    enabledEventListeners.add(
+                            new EventListenerContainer(TouchEvent.TOUCHMOVE, eventType, new EventListener<TouchEvent>() {
+                                @Override
+                                public void handleEvent(TouchEvent event) {
+                                    gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
+                                }
+                            })
+                        );
+                    break;
             }
         }
         //add the events to the native element
