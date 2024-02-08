@@ -1,5 +1,6 @@
 package de.exware.gplatform.teavm.event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.teavm.jso.JSBody;
@@ -10,7 +11,10 @@ import org.teavm.jso.dom.events.MouseEvent;
 
 import de.exware.gplatform.event.GPEvent;
 import de.exware.gplatform.event.GPTouch;
-import de.exware.gplatform.internal.MouseWheelEvent;
+import de.exware.gplatform.internal.event.MouseWheelEvent;
+import de.exware.gplatform.internal.event.TouchEvent;
+import de.exware.gplatform.internal.event.TouchList;
+import de.exware.gplatform.teavm.TeavmGPTouch;
 
 public class TeavmGPEvent
     implements GPEvent
@@ -107,12 +111,28 @@ public class TeavmGPEvent
     @Override
     public List<GPTouch> getTouches()
     {
-        throw new RuntimeException("TeavmGPEvent.getTouches() is unsupported."); //TODO: proper implementation
+        return createGPTouchList(
+                ((TouchEvent) nativeEvent).getTouches()
+            );
     }
 
     @Override
     public List<GPTouch> getChangedTouches()
     {
-        throw new RuntimeException("TeavmGPEvent.getChangedTouches() is unsupported."); //TODO: proper implementation
+        return createGPTouchList(
+            ((TouchEvent) nativeEvent).getChangedTouches()
+        );
+    }
+    
+    private static List<GPTouch> createGPTouchList(TouchList touchList)
+    {
+        List<GPTouch> gpTouchList = new ArrayList<>(touchList.getLength());
+
+        for(int i = 0; i < touchList.getLength(); i++)
+        {
+            gpTouchList.add(new TeavmGPTouch(touchList.item(i)));
+        }
+
+        return gpTouchList;
     }
 }
