@@ -39,7 +39,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         return rule;
     }
     
-    private static HashMap<Integer, TeavmGPCSSRule> teavmGPCSSRuleInstanceCache = new HashMap<Integer, TeavmGPCSSRule>();
+    private HashMap<Integer, TeavmGPCSSRule> teavmGPCSSRuleInstanceCache = new HashMap<>();
     
     protected CSSRule getCSSRule(int i)
     {
@@ -60,7 +60,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         return count;
     }
     
-    private static HashMap<Integer, TeavmGPStyleSheet> teavmGPStyleSheetInstanceCache = new HashMap<Integer, TeavmGPStyleSheet>();
+    private static HashMap<Integer, TeavmGPStyleSheet> teavmGPStyleSheetInstanceCache = new HashMap<>();
     
     public static GPStyleSheet get(int index)
     {
@@ -88,6 +88,20 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         LOGGER.log(Logger.LEVEL_NATIVE, "native_count -> success");
         return count;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) 
+    {
+        if(enabled)
+        {
+            native_setEnabled(nativeJsObject);
+        }
+        else
+        {
+            native_setDisabled(nativeJsObject);
+        }
+        LOGGER.log(Logger.LEVEL_NATIVE, "native_setEnabled -> success");
+    }    
     
     /************************ NATIVE **********************/
     @JSBody(params = {"nativeJSObject", "i"}, script = "return nativeJSObject.cssRules[i];")
@@ -103,5 +117,11 @@ public class TeavmGPStyleSheet implements GPStyleSheet
     private static native String native_getHref(JSObject nativeJSObject);
     
     @JSBody(params = {}, script = "return document.styleSheets.length;")
-    private static native int native_count();    
+    private static native int native_count();
+
+    @JSBody(params = {"nativeJSObject"}, script = "nativeJSObject.disabled = false;")
+    private static native void native_setEnabled(JSObject nativeJSObject);
+
+    @JSBody(params = {"nativeJSObject"}, script = "nativeJSObject.disabled = true;")
+    private static native void native_setDisabled(JSObject nativeJSObject);
 }
