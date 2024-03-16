@@ -13,7 +13,7 @@ public class Logger
     private String logPoint;
     private String continousLoggingConstant = null;
     private int continousLoggingCounter = 0;
-    private static String logLevel = "";
+    private static String logLevel = LEVEL_NONE;
 
     public Logger(Class clazz)
     {
