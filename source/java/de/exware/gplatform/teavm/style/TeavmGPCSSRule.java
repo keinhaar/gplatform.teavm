@@ -2,6 +2,7 @@ package de.exware.gplatform.teavm.style;
 
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
+
 import de.exware.gplatform.internal.Logger;
 import de.exware.gplatform.style.CSSRule;
 
@@ -98,7 +99,7 @@ public class TeavmGPCSSRule implements CSSRule
     }
     
     /************************ NATIVE **********************/
-    @JSBody(params = {"nativeJSObject"}, script = "return nativeJSObject.selectorText;")
+    @JSBody(params = {"nativeJSObject"}, script = "if(nativeJSObject.selectorText) {return nativeJSObject.selectorText;} else {return '';}")
     private static native String native_getSelector(JSObject nativeJSObject);
     
     @JSBody(params = {"nativeJSObject", "i"}, script = "return nativeJSObject.style.item(i);")
