@@ -70,7 +70,7 @@ public class Build extends JavaBuilder
         addDependency(new MavenDependency("org.teavm", "teavm-interop", TEAVM_VERSION));
         addDependency(new MavenDependency("org.teavm", "teavm-jso", TEAVM_VERSION));
         addDependency(new MavenDependency("org.teavm", "teavm-jso-apis", TEAVM_VERSION));
-        addDependency(new MavenDependency("de.exware", "de.exware.gplatform", "1.0"));
+        addDependency(new MavenDependency("de.exware", "de.exware.gplatform", "1.1"));
         super.compile();
     }
 }

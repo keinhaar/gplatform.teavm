@@ -131,4 +131,9 @@ public class TeavmGPDocument implements de.exware.gplatform.GPDocument
     {
         return new TeavmGPFileInputElement(createNativeElement("input"));
     }
+
+    @Override
+    public GPElement getDocumentElement() {
+        return new TeavmGPElement(HTMLDocument.current().getDocumentElement());
+    }
 }
