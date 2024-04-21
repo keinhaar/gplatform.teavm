@@ -10,7 +10,7 @@ import de.exware.nobuto.utils.Utilities;
 public class Build extends JavaBuilder
 {
     private static final String PROJECTNAME = "de.exware.gplatform.teavm";
-    private static final String TEAVM_VERSION = "0.9.0";
+    private static final String TEAVM_VERSION = "0.9.2";
     
     private File jarFile = new File("dist/" + PROJECTNAME + ".jar");
     private File sourceJarFile = new File("dist/" + PROJECTNAME + "-sources.jar");
