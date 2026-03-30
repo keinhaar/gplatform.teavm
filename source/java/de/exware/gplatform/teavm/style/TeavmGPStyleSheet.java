@@ -5,20 +5,21 @@ import java.util.HashMap;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 
-import de.exware.gplatform.internal.Logger;
+import de.exware.gplatform.log.Log;
+import de.exware.gplatform.log.LogFactory;
 import de.exware.gplatform.style.CSSRule;
 import de.exware.gplatform.style.GPStyleSheet;
 
 public class TeavmGPStyleSheet implements GPStyleSheet
 {
-    private static final Logger LOGGER = new Logger(TeavmGPStyleSheet.class);  
+    private static final Log LOG = LogFactory.getLog(TeavmGPStyleSheet.class);  
     private static int instanceCounter = 0;
     private final JSObject nativeJsObject;
     
     public TeavmGPStyleSheet(JSObject nativeObject)
     {
         this.nativeJsObject = nativeObject;
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance " + instanceCounter++);
+        LOG.debug("created instance " + instanceCounter++);
     }
     
     @Override
@@ -49,14 +50,14 @@ public class TeavmGPStyleSheet implements GPStyleSheet
             teavmGPCSSRule = new TeavmGPCSSRule(native_getCSSRule(nativeJsObject, i));
             teavmGPCSSRuleInstanceCache.put(i, teavmGPCSSRule);
         }
-        LOGGER.log(Logger.LEVEL_NATIVE, "getCSSRule -> success");
+        LOG.debug("getCSSRule -> success");
         return teavmGPCSSRule;  
     }
     
     protected int getRuleCount()
     {
         int count = native_getRuleCount(nativeJsObject);
-        LOGGER.log(Logger.LEVEL_NATIVE, "getRuleCount -> success");
+        LOG.debug("getRuleCount -> success");
         return count;
     }
     
@@ -70,7 +71,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
             teavmGPStyleSheet = new TeavmGPStyleSheet(native_getStylesheet(index));
             teavmGPStyleSheetInstanceCache.put(index, teavmGPStyleSheet);
         }
-        LOGGER.log(Logger.LEVEL_NATIVE, "get -> success");
+        LOG.debug("get -> success");
         return teavmGPStyleSheet;
     }
 
@@ -78,15 +79,21 @@ public class TeavmGPStyleSheet implements GPStyleSheet
     public String getHref()
     {
         String href = native_getHref(nativeJsObject);
-        LOGGER.log(Logger.LEVEL_NATIVE, "native_getHref -> success");
+        LOG.debug("native_getHref -> success");
         return href;
     }
 
     public static int count()
     {
         int count = native_count();
-        LOGGER.log(Logger.LEVEL_NATIVE, "native_count -> success");
+        LOG.debug("native_count -> success");
         return count;
+    }
+
+    public static void add(String url)
+    {
+        native_add(url);
+        LOG.debug("native_add -> success");
     }
 
     @Override
@@ -100,7 +107,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         {
             native_setDisabled(nativeJsObject);
         }
-        LOGGER.log(Logger.LEVEL_NATIVE, "native_setEnabled -> success");
+        LOG.debug("native_setEnabled -> success");
     }    
     
     /************************ NATIVE **********************/
@@ -118,6 +125,14 @@ public class TeavmGPStyleSheet implements GPStyleSheet
     
     @JSBody(params = {}, script = "return document.styleSheets.length;")
     private static native int native_count();
+
+    @JSBody(params = {"url"}, script = "var link = document.createElement('link');"
+            + "link.rel = 'stylesheet';"
+            + "link.type = 'text/css';"
+            + "link.href = url;"
+            + "document.head.appendChild(link);"
+            )
+    private static native void native_add(String url);
 
     @JSBody(params = {"nativeJSObject"}, script = "nativeJSObject.disabled = false;")
     private static native void native_setEnabled(JSObject nativeJSObject);

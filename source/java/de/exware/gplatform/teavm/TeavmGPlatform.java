@@ -12,7 +12,8 @@ import de.exware.gplatform.GPDocument;
 import de.exware.gplatform.GPStorage;
 import de.exware.gplatform.GPWindow;
 import de.exware.gplatform.internal.Ajax;
-import de.exware.gplatform.internal.Logger;
+import de.exware.gplatform.log.Log;
+import de.exware.gplatform.log.LogFactory;
 import de.exware.gplatform.style.GPStyleSheet;
 import de.exware.gplatform.teavm.style.TeavmGPStyleSheet;
 import de.exware.gplatform.teavm.timer.TeavmGPTimer;
@@ -20,7 +21,7 @@ import de.exware.gplatform.timer.GPTimer;
 
 public class TeavmGPlatform extends de.exware.gplatform.GPlatform
 {
-    private static final Logger LOGGER = new Logger(TeavmGPlatform.class);
+    private static final Log LOG = LogFactory.getLog(TeavmGPlatform.class);
     private static GPWindow window = new TeavmGPWindow();
     private static GPDocument document = new TeavmGPDocument();
     private static HTMLCanvasElement measureCanvas = (HTMLCanvasElement) HTMLDocument.current().createElement("canvas");
@@ -67,7 +68,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     public double getDevicePixelRatio()
     {
         double devicePixelRatio = native_getDevicePixelRatio();
-        LOGGER.log(Logger.LEVEL_NATIVE, "getDevicePixelRatio() -> success");
+        LOG.debug("getDevicePixelRatio() -> success");
         return devicePixelRatio;
     }
 
@@ -96,6 +97,18 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
         return gpStyleSheet;
     }
 
+    @Override
+    public GPStyleSheet getStyleSheet(String name)
+    {
+        return GPStyleSheet.getStyleSheet(name);
+    }
+
+    @Override
+    public void addStyleSheet(String url) 
+    {
+        TeavmGPStyleSheet.add(url);
+    }
+    
     @Override
     public int getStyleSheetCount()
     {
@@ -143,7 +156,7 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
     public void clearSelection()
     {
         native_clearSelection();
-        LOGGER.log(Logger.LEVEL_NATIVE, "clearSelection() -> success");
+        LOG.debug("clearSelection() -> success");
     }
     
     @Override
@@ -196,4 +209,5 @@ public class TeavmGPlatform extends de.exware.gplatform.GPlatform
             + "else if((navigator.userAgent.indexOf(\"MSIE\") != -1 ) || (!!document.documentMode == true ))/*IF IE > 10 */{return 'IE';}  \r\n"
             + "else {return 'unknown';}")
     private static native String native_getBrowserName();
+
 }

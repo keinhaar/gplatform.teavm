@@ -17,14 +17,15 @@ import de.exware.gplatform.GPElement;
 import de.exware.gplatform.GPStyle;
 import de.exware.gplatform.event.GPEvent.Type;
 import de.exware.gplatform.event.GPEventListener;
-import de.exware.gplatform.internal.Logger;
 import de.exware.gplatform.internal.event.MouseWheelEvent;
 import de.exware.gplatform.internal.event.TouchEvent;
+import de.exware.gplatform.log.Log;
+import de.exware.gplatform.log.LogFactory;
 import de.exware.gplatform.teavm.event.TeavmGPEvent;
 
 public class TeavmGPElement implements GPElement
 {
-    private static final Logger LOGGER = Logger.getInstance(TeavmGPElement.class);
+    private static final Log LOG = LogFactory.getLog(TeavmGPElement.class);
     
     private HTMLElement nativeElement;
     
@@ -119,7 +120,7 @@ public class TeavmGPElement implements GPElement
     public int getAbsoluteLeft()
     {
         int left = (int) native_getAbsoluteLeft(nativeElement);
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getAbsoluteLeft(): " + left);
+        LOG.debug("getAbsoluteLeft(): " + left);
         return left;
     }
 
@@ -127,7 +128,7 @@ public class TeavmGPElement implements GPElement
     public int getAbsoluteTop()
     {
         int top = (int) native_getAbsoluteTop(nativeElement);
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getAbsoluteTop(): " + top);
+        LOG.debug("getAbsoluteTop(): " + top);
         return top;
     }
 
@@ -196,7 +197,7 @@ public class TeavmGPElement implements GPElement
                         );
                     break;
                 case ONCLICK:
-                    LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "enabledEvents onclick event for element: " + getNativeElement().getAttribute("elementid"));
+                    LOG.debug("enabledEvents onclick event for element: " + getNativeElement().getAttribute("elementid"));
                     enabledEventListeners.add(
                             new EventListenerContainer(MouseEvent.CLICK, eventType, new EventListener<MouseEvent>() {
                                 @Override

@@ -4,11 +4,12 @@ import org.teavm.jso.dom.css.CSSStyleDeclaration;
 import org.teavm.jso.dom.html.HTMLElement;
 
 import de.exware.gplatform.GPStyle;
-import de.exware.gplatform.internal.Logger;
+import de.exware.gplatform.log.Log;
+import de.exware.gplatform.log.LogFactory;
 
 class TeavmGPStyle implements GPStyle
 {
-    private static final Logger LOGGER = new Logger(TeavmGPStyle.class);
+    private static final Log LOG = LogFactory.getLog(TeavmGPStyle.class);
     private CSSStyleDeclaration nativeElementStyleDeclaration;
 
     public TeavmGPStyle(HTMLElement nativeElement)
@@ -19,7 +20,7 @@ class TeavmGPStyle implements GPStyle
     public TeavmGPStyle(CSSStyleDeclaration nativeElementStyleDeclaration)
     {
         this.nativeElementStyleDeclaration = nativeElementStyleDeclaration;
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance");
+        LOG.debug("created instance");
     }
 
     @Override
@@ -27,7 +28,7 @@ class TeavmGPStyle implements GPStyle
     {
         name = camelCaseToCSS(name);
         nativeElementStyleDeclaration.setProperty(name, value);
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "setProperty -> executed with name: " + name + " value: " + value);
+        LOG.debug("setProperty -> executed with name: " + name + " value: " + value);
     }
 
     private String camelCaseToCSS(String name)
@@ -53,7 +54,7 @@ class TeavmGPStyle implements GPStyle
     {
         name = camelCaseToCSS(name);
         String property = nativeElementStyleDeclaration.getPropertyValue(name);
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "getProperty -> success for name: " + name + " property: " + property);
+        LOG.debug("getProperty -> success for name: " + name + " property: " + property);
         return property;
     }
 

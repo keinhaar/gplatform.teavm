@@ -3,19 +3,20 @@ package de.exware.gplatform.teavm.style;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 
-import de.exware.gplatform.internal.Logger;
+import de.exware.gplatform.log.Log;
+import de.exware.gplatform.log.LogFactory;
 import de.exware.gplatform.style.CSSRule;
 
 public class TeavmGPCSSRule implements CSSRule
 {
-    private static final Logger LOGGER = new Logger(TeavmGPCSSRule.class); 
+    private static final Log LOG = LogFactory.getLog(TeavmGPCSSRule.class); 
     private static int instanceCounter = 0;
     private JSObject nativeJSObject;
     
     public TeavmGPCSSRule(JSObject nativeJSObject)
     {
         this.nativeJSObject = nativeJSObject;
-        LOGGER.log(Logger.LEVEL_IMPLEMENTATION, "created instance " + instanceCounter++);
+        LOG.debug("created instance " + instanceCounter++);
     }
 
     @Override
@@ -67,34 +68,34 @@ public class TeavmGPCSSRule implements CSSRule
     public String getSelector()
     {
         String selector = native_getSelector(nativeJSObject);
-        LOGGER.log(Logger.LEVEL_NATIVE, "getSelector -> success");
+        LOG.debug("getSelector -> success");
         return selector;
     }
     
     protected String getPropertyName(int i)
     {
         String name = native_getPropertyName(nativeJSObject, i);
-        LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyName -> success");
+        LOG.debug("getPropertyName -> success");
         return name;
     }
 
     protected String getPropertyValue(String name)
     {
         String value = native_getPropertyValue(nativeJSObject, name);
-        LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyValue -> success");
+        LOG.debug("getPropertyValue -> success");
         return value;
     }
 
     protected void setPropertyValue(String name, String value)
     {
         native_setPropertyValue(nativeJSObject, name, value);
-        LOGGER.log(Logger.LEVEL_NATIVE, "setPropertyValue -> success");
+        LOG.debug("setPropertyValue -> success");
     }
 
     protected int getPropertyCount()
     {
         int count = native_getPropertyCount(nativeJSObject);
-        LOGGER.log(Logger.LEVEL_NATIVE, "getPropertyCount -> success");
+        LOG.debug("getPropertyCount -> success");
         return count;
     }
     
