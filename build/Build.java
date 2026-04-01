@@ -10,6 +10,7 @@ import de.exware.nobuto.utils.Utilities;
 public class Build extends JavaBuilder
 {
     private static final String PROJECTNAME = "de.exware.gplatform.teavm";
+    private static final String ARTIFACT_ID = "gplatform.teavm";
     private static final String TEAVM_VERSION = "0.10.0";
     
     private File jarFile = new File("dist/" + PROJECTNAME + ".jar");
@@ -42,8 +43,8 @@ public class Build extends JavaBuilder
         clean();
         dist();
         createSourceJar();
-        Maven.getDefaultinstance().installJar(jarFile, "de.exware", PROJECTNAME, getVersion());
-        Maven.getDefaultinstance().installSourceJar(sourceJarFile, "de.exware", PROJECTNAME, getVersion());
+        Maven.getDefaultinstance().installJar(jarFile, "de.exware", ARTIFACT_ID, getVersion());
+        Maven.getDefaultinstance().installSourceJar(sourceJarFile, "de.exware", ARTIFACT_ID, getVersion());
     }
 
     public void createSourceJar() throws IOException
@@ -70,7 +71,7 @@ public class Build extends JavaBuilder
         addDependency(new MavenDependency("org.teavm", "teavm-interop", TEAVM_VERSION));
         addDependency(new MavenDependency("org.teavm", "teavm-jso", TEAVM_VERSION));
         addDependency(new MavenDependency("org.teavm", "teavm-jso-apis", TEAVM_VERSION));
-        addDependency(new MavenDependency("de.exware", "de.exware.gplatform", "1.1"));
+        addDependency(new MavenDependency("de.exware", "gplatform", "1.2.0"));
         super.compile();
     }
 }
