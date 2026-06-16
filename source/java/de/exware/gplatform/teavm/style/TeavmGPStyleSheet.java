@@ -31,7 +31,7 @@ public class TeavmGPStyleSheet implements GPStyleSheet
         {
             CSSRule r = getCSSRule(i);
             String sel = r.getSelector();
-            if(sel.equals(selector))
+            if(sel != null && sel.equals(selector))
             {
                 rule = r;
                 break;

@@ -6,7 +6,7 @@
     <!-- 1. Basis-Informationen (Namespace & Projekt) -->
     <groupId>de.exware</groupId>
     <artifactId>gplatform.teavm</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
   
     <!-- 2. Erforderliche Metadaten für Maven Central -->
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>de.exware</groupId>
             <artifactId>gplatform</artifactId>
-            <version>1.2.0</version>
+            <version>1.3.0</version>
         </dependency>
         
         <dependency>
@@ -52,8 +52,8 @@
     </dependencies>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source> <!-- Deine Java Version -->
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source> <!-- Deine Java Version -->
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <teavm.version>0.14.0</teavm.version>
     </properties>
@@ -123,7 +123,7 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.6.0</version>
+                <version>0.12.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>mavencentral</publishingServerId>

@@ -188,7 +188,7 @@ public class TeavmGPElement implements GPElement
             switch(eventType) {
                 case ONCHANGE:
                     enabledEventListeners.add(
-                            new EventListenerContainer("change", eventType, new EventListener<Event>() {
+                            new EventListenerContainer("change", eventType, new EventListener<>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -229,7 +229,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONERROR:
                     enabledEventListeners.add(
-                            new EventListenerContainer("error", eventType, new EventListener<Event>() {
+                            new EventListenerContainer("error", eventType, new EventListener<>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -239,7 +239,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONFOCUS:
                     enabledEventListeners.add(
-                            new EventListenerContainer("focus", eventType, new EventListener<Event>() {
+                            new EventListenerContainer("focus", eventType, new EventListener<>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -279,7 +279,7 @@ public class TeavmGPElement implements GPElement
                     break;
                 case ONLOAD:
                     enabledEventListeners.add(
-                            new EventListenerContainer("load", eventType, new EventListener<Event>() {
+                            new EventListenerContainer("load", eventType, new EventListener<>() {
                                 @Override
                                 public void handleEvent(Event event) {
                                     gpEventListener.onBrowserEvent(new TeavmGPEvent(eventType, event));
@@ -559,6 +559,12 @@ public class TeavmGPElement implements GPElement
     public HTMLElement getNativeElement()
     {
         return nativeElement;
+    }
+    
+    @Override
+    public String getTagName()
+    {
+        return nativeElement.getTagName();
     }
     
     @Override
